@@ -10,6 +10,7 @@ const GoogleStrategy = new Strategy({
     callbackURL: '/v1/auth/google/callback',
     scope: ['profile', 'email'],
 },
+
 function (accessToken: string, refreshToken: string, profile: Profile, done: VerifyCallback) {
     console.log("callback", accessToken, profile)
     done(null, profile);
@@ -26,4 +27,4 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(user, done) {
     console.log("deserialize", user)
     done(null, user as any);
-})
+});

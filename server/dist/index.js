@@ -19,13 +19,13 @@ app.use((0, cookie_session_1.default)({
     keys: [process.env.COOKIE_KEY],
     maxAge: 24 * 60 * 60 * 1000,
 }));
-app.use(passport_1.default.initialize());
-app.use(passport_1.default.session());
 app.use((0, cors_1.default)({
     origin: process.env.CLIENT_URL,
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
 }));
+app.use(passport_1.default.initialize());
+app.use(passport_1.default.session());
 (0, mongoose_1.connect)(process.env.MONGODB_URL, {
     dbName: process.env.DBNAME,
 })

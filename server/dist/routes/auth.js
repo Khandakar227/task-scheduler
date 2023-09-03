@@ -6,10 +6,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const auth_1 = require("../controllers/auth");
 const passport_1 = __importDefault(require("passport"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const googleAuthRoutes = express_1.default.Router();
 googleAuthRoutes.get('/google', passport_1.default.authenticate("google", {
     scope: ['profile', 'email']
 }));
-googleAuthRoutes.get('/google/callback', auth_1.googleAuthCallback);
+googleAuthRoutes.get('/google/callback', passport_1.default.authenticate("google", {
+    successRedirect: `${process.env.CLIENT_URL}/appointment`,
+    failureRedirect: "/auth/failed",
+}));
 googleAuthRoutes.get('/google/callback/failed', auth_1.googleAuthFailed);
 exports.default = googleAuthRoutes;

@@ -20,9 +20,6 @@ app.use(
   })
 );
 
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.use(
   cors({
     origin: process.env.CLIENT_URL,
@@ -31,13 +28,17 @@ app.use(
   })
 );
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 connect(process.env.MONGODB_URL as string, {
   dbName: process.env.DBNAME,
 })
-  .then((_) => console.log("Connected to database"))
-  .catch((error) => {
-    console.log("connection failed! ", error);
-  });
+.then((_) => console.log("Connected to database"))
+.catch((error) => {
+  console.log("connection failed! ", error);
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -8,25 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.googleAuthFailed = exports.googleAuthCallback = void 0;
-const passport_1 = __importDefault(require("passport"));
-const googleAuthCallback = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        console.log("googleAuthCallback", process.env.CLIENT_URL);
-        passport_1.default.authenticate("google", {
-            successRedirect: `${process.env.CLIENT_URL}/appointment`,
-            failureRedirect: "/auth/failed"
-        });
-    }
-    catch (err) {
-        console.log(err);
-    }
-});
-exports.googleAuthCallback = googleAuthCallback;
+exports.googleAuthFailed = void 0;
 const googleAuthFailed = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         console.log("googleAuthFailed");
