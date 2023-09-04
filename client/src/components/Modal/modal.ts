@@ -1,9 +1,13 @@
-export function openModal() {
-    const openEvent = new Event("show-modal");
+export function openModal(data = {}) {
+    const openEvent = new CustomEvent("show-modal", {
+        detail: data
+    });
     window.dispatchEvent(openEvent);
 }
 
-export function closeModal() {
-    const closeEvent = new Event("hide-modal");
+export function closeModal(data = {}) {
+    const closeEvent = new CustomEvent("hide-modal", {
+        detail: data
+    });
     window.dispatchEvent(closeEvent);
 }
