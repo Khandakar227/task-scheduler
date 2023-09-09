@@ -3,6 +3,10 @@ import Header from "../components/Header";
 import Loader from "../components/Loader";
 import { APPOINTMENT_VERIFY } from "../assets/config";
 import { toast } from 'react-toastify';
+import Modal from "../components/Modal/Index";
+import AppointmentTimePicker from "../components/AppointmentTimePicker";
+import { openModal } from "../components/Modal/modal";
+// import AppointmentTimePicker from "../components/AppointmentTimePicker";
 
 export default function Appointment() {
     const [loading, setLoading] = useState(true);
@@ -79,7 +83,7 @@ export default function Appointment() {
                     <label htmlFor="datetime" className="font-bold">Date & Time :</label>
                     <div className="w-full max-w-[35rem] flex justify-start items-center gap-4">
                         <span> Monday, (10:00 am - 11.30 am) </span>
-                        <span className="underline text-green-700 cursor-pointer"> Pick Time </span>
+                        <button onClick={() =>openModal({name: "time-picker"})} className="underline text-green-700 cursor-pointer"> Pick Time </button>
                     </div>
                 </div>
                 
@@ -108,6 +112,9 @@ export default function Appointment() {
                 </div>
             </form>
         </div>
+        <Modal name="time-picker">
+            <AppointmentTimePicker/>
+        </Modal>
       </main>
     </>
   )

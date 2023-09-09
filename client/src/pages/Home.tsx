@@ -2,6 +2,7 @@ import {  } from 'react'
 import Modal from '../components/Modal/Index'
 import { openModal } from '../components/Modal/modal'
 import Header from '../components/Header'
+import ConnectEmailModal from '../components/ConnectEmailModal'
 
 function Home() {
   return (
@@ -16,13 +17,15 @@ function Home() {
               Online Portal
             </p>
             <div className='md:pt-20 pt-10 flex md:flex-row flex-col justify-center items-center gap-8'>
-                <button onClick={() => openModal({type: 'appointment'})} className='bg-green-600 py-3 px-8 flex rounded-3xl text-white text-xl font-bold'>Get Your Appointment</button>
-                <button onClick={() => openModal({type: 'conference'})} className='bg-green-600 py-3 px-8 flex rounded-3xl text-white text-xl font-bold'>Book Conference Room</button>
+                <button onClick={() => openModal({name:'connect-email', type: 'appointment'})} className='bg-green-600 py-3 px-8 flex rounded-3xl text-white text-xl font-bold'>Get Your Appointment</button>
+                <button onClick={() => openModal({name:'connect-email', type: 'conference'})} className='bg-green-600 py-3 px-8 flex rounded-3xl text-white text-xl font-bold'>Book Conference Room</button>
             </div>
           </div>
         </div>
       </main>
-      <Modal/>
+      <Modal name='connect-email'>
+        <ConnectEmailModal/>
+      </Modal>
     </>
   )
 }

@@ -6,7 +6,7 @@ export default function Conference() {
       <main className='font-nunito min-h-screen'>
         <Header />
         <div className="p-4">
-            <h2 className="font-bold text-2xl text-center py-8">Get Your Conference</h2>
+            <h2 className="font-bold text-2xl text-center py-8">Book a Conference</h2>
             <form className="mx-auto max-w-4xl">
             <div className="flex sm:flex-row flex-col justify-between gap-2 py-2">
                   <span className="font-bold">Meeting Place :</span>                  
