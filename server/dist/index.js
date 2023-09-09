@@ -8,9 +8,11 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = require("mongoose");
 const cors_1 = __importDefault(require("cors"));
 const cookie_session_1 = __importDefault(require("cookie-session"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const auth_1 = __importDefault(require("./routes/auth"));
 const passport_1 = __importDefault(require("passport"));
 require("./libs/passport");
+const appointment_1 = __importDefault(require("./routes/appointment"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 8000;
@@ -33,9 +35,11 @@ app.use(passport_1.default.session());
     .catch((error) => {
     console.log("connection failed! ", error);
 });
+app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use("/v1/auth", auth_1.default);
+app.use("/v1/appointment", appointment_1.default);
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });

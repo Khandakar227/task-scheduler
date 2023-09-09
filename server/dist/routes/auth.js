@@ -7,6 +7,8 @@ const express_1 = __importDefault(require("express"));
 const auth_1 = require("../controllers/auth");
 const passport_1 = __importDefault(require("passport"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const cookies_1 = require("../libs/cookies");
+const config_1 = require("../libs/config");
 dotenv_1.default.config();
 const googleAuthRoutes = express_1.default.Router();
 googleAuthRoutes.get("/appointment/google", passport_1.default.authenticate("appointment-google-sign-in", {
@@ -24,7 +26,11 @@ googleAuthRoutes.get("/appointment/google/callback", (req, res) => {
                 .json({ error: true, message: "Failed to authenticate" });
             return;
         }
-        res.redirect(`${process.env.CLIENT_URL}/appointment`);
+        res.cookie(config_1.COOKIE_NAME, (0, cookies_1.createCookie)('appointment', user), {
+            httpOnly: true,
+            maxAge: config_1.COOKIE_MAX_AGE,
+        });
+        res.redirect(302, `${process.env.CLIENT_URL}/appointment`);
     })(req, res);
 });
 googleAuthRoutes.get("/conference/google/callback", (req, res) => {

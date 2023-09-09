@@ -3,9 +3,11 @@ import dotenv from "dotenv";
 import { connect } from "mongoose";
 import cors from "cors";
 import cookieSession from "cookie-session";
+import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth";
 import passport from "passport";
 import "./libs/passport";
+import appointmentRoutes from "./routes/appointment";
 
 dotenv.config();
 
@@ -40,10 +42,12 @@ connect(process.env.MONGODB_URL as string, {
   console.log("connection failed! ", error);
 });
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/v1/auth", authRoutes);
+app.use("/v1/appointment", appointmentRoutes);
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

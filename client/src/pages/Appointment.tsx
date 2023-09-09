@@ -1,13 +1,49 @@
+import { useEffect, useState, FormEvent } from "react";
 import Header from "../components/Header";
+import Loader from "../components/Loader";
+import { APPOINTMENT_VERIFY } from "../assets/config";
+import { toast } from 'react-toastify';
 
 export default function Appointment() {
-  return (
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch(`${APPOINTMENT_VERIFY}`, {credentials: 'include'})
+        .then(res=> res.json())
+        .then((data) => {
+             if (data.error) {
+                toast.error("Unauhorized access, Please connect with your email.");
+                location.href = "/";
+            }
+             else setLoading(false);
+        })
+        .catch((err) => console.log(err))
+    }, [])
+
+    function handleSubmit(e:FormEvent) {
+        e.preventDefault();
+        const formData = new FormData(e.target as HTMLFormElement);
+        const data = Object.fromEntries(formData);
+        console.log(data)
+    }
+    
+    if (loading) return (
+    <>
+        <main className='font-nunito min-h-screen'>
+            <Header />
+            <div className="min-h-[85vh] flex justify-center items-center">
+                <Loader/>
+            </div>
+        </main>
+    </>)
+
+    return (
     <>
       <main className='font-nunito min-h-screen'>
         <Header />
         <div className="p-4">
             <h2 className="font-bold text-2xl text-center py-8">Get Your Appointment</h2>
-            <form className="mx-auto max-w-4xl">
+            <form className="mx-auto max-w-4xl" onSubmit={handleSubmit}>
                 <div className="flex sm:flex-row flex-col justify-between sm:items-center gap-2 py-2">
                     <span className="font-bold">Appointment With: </span>    
                     
