@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { Profile } from "passport-google-oauth20";
 import { createCookie } from "../libs/cookies";
 import { COOKIE_MAX_AGE, COOKIE_NAME } from "../libs/config";
+import { addUser } from "../libs/user";
 
 dotenv.config();
 
@@ -26,7 +27,7 @@ googleAuthRoutes.get(
 googleAuthRoutes.get("/appointment/google/callback", (req, res) => {
   passport.authenticate(
     "appointment-google-sign-in",
-    function (
+    async function (
       err: any,
       user?: Profile,
       info?: object | string | Array<string | undefined>,
@@ -39,6 +40,9 @@ googleAuthRoutes.get("/appointment/google/callback", (req, res) => {
           .json({ error: true, message: "Failed to authenticate" });
         return;
       }
+      //Add user to mongodb
+      await addUser(user);
+      
       res.cookie(COOKIE_NAME, createCookie('appointment', user), {
         httpOnly: true,
         maxAge: COOKIE_MAX_AGE,

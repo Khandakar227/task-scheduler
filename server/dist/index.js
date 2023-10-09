@@ -13,6 +13,8 @@ const auth_1 = __importDefault(require("./routes/auth"));
 const passport_1 = __importDefault(require("passport"));
 require("./libs/passport");
 const appointment_1 = __importDefault(require("./routes/appointment"));
+const user_1 = __importDefault(require("./routes/user"));
+const conference_1 = __importDefault(require("./routes/conference"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 8000;
@@ -40,6 +42,8 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use("/v1/auth", auth_1.default);
 app.use("/v1/appointment", appointment_1.default);
+app.use("/v1/conference", conference_1.default);
+app.use("/v1/user", user_1.default);
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });

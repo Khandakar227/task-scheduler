@@ -10,6 +10,7 @@ import Home from './pages/Home.tsx';
 import Appointment from './pages/Appointment.tsx';
 import Conference from './pages/Conference.tsx';
 import { ToastContainer } from 'react-toastify';
+import UserProvider from './contexts/UserContext.tsx';
 
 const router = createBrowserRouter([
   {
@@ -28,7 +29,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <UserProvider>
+      <RouterProvider router={router} />
+    </UserProvider>
+    
     <ToastContainer
       position="top-center"
       hideProgressBar

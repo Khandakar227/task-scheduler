@@ -1,4 +1,3 @@
-import {  } from 'react'
 import Modal from '../components/Modal/Index'
 import { openModal } from '../components/Modal/modal'
 import Header from '../components/Header'
@@ -8,7 +7,7 @@ function Home() {
   return (
     <>
       <main className='font-nunito min-h-screen bg-1'>
-      <Header />
+      <Header disableSidebar={true} />
         <div className='max-w-[600px] mx-auto min-h-[calc(100vh-95px)] h-full flex justify-center items-center'>
           <div>
             <p className='md:text-5xl text-3xl font-bold text-center text-white md:leading-[4.5rem]'>

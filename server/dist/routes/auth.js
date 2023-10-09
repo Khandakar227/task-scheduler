@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -9,6 +18,7 @@ const passport_1 = __importDefault(require("passport"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const cookies_1 = require("../libs/cookies");
 const config_1 = require("../libs/config");
+const user_1 = require("../libs/user");
 dotenv_1.default.config();
 const googleAuthRoutes = express_1.default.Router();
 googleAuthRoutes.get("/appointment/google", passport_1.default.authenticate("appointment-google-sign-in", {
@@ -19,18 +29,22 @@ googleAuthRoutes.get("/conference/google", passport_1.default.authenticate("conf
 }));
 googleAuthRoutes.get("/appointment/google/callback", (req, res) => {
     passport_1.default.authenticate("appointment-google-sign-in", function (err, user, info, status) {
-        if (err) {
-            console.log(err);
-            res
-                .status(401)
-                .json({ error: true, message: "Failed to authenticate" });
-            return;
-        }
-        res.cookie(config_1.COOKIE_NAME, (0, cookies_1.createCookie)('appointment', user), {
-            httpOnly: true,
-            maxAge: config_1.COOKIE_MAX_AGE,
+        return __awaiter(this, void 0, void 0, function* () {
+            if (err) {
+                console.log(err);
+                res
+                    .status(401)
+                    .json({ error: true, message: "Failed to authenticate" });
+                return;
+            }
+            //Add user to mongodb
+            yield (0, user_1.addUser)(user);
+            res.cookie(config_1.COOKIE_NAME, (0, cookies_1.createCookie)('appointment', user), {
+                httpOnly: true,
+                maxAge: config_1.COOKIE_MAX_AGE,
+            });
+            res.redirect(302, `${process.env.CLIENT_URL}/appointment`);
         });
-        res.redirect(302, `${process.env.CLIENT_URL}/appointment`);
     })(req, res);
 });
 googleAuthRoutes.get("/conference/google/callback", (req, res) => {

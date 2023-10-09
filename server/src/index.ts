@@ -8,6 +8,8 @@ import authRoutes from "./routes/auth";
 import passport from "passport";
 import "./libs/passport";
 import appointmentRoutes from "./routes/appointment";
+import userRoutes from "./routes/user";
+import conferenceRoutes from "./routes/conference";
 
 dotenv.config();
 
@@ -48,6 +50,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/v1/auth", authRoutes);
 app.use("/v1/appointment", appointmentRoutes);
+app.use("/v1/conference", conferenceRoutes);
+app.use("/v1/user", userRoutes);
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

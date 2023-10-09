@@ -1,11 +1,10 @@
 import { Request, Response } from "express";
-import AppointmentModel from "../models/Appointment";
+import ConferenceModel from "../models/Conference";
 import {validationResult} from 'express-validator';
 
-export const createAppointmentHandler = async (req: Request, res: Response) => {
+export const bookConferenceHandler = async (req: Request, res: Response) => {
   try {
     const {
-      appointment_with,
       name,
       contact,
       reason_of_meeting,
@@ -24,8 +23,7 @@ export const createAppointmentHandler = async (req: Request, res: Response) => {
 
     // check if appointment is already created (not required for now)
 
-    const newAppointment = await AppointmentModel.create({
-      appointment_with,
+    const newAppointment = await ConferenceModel.create({
       name,
       contact,
       reason_of_meeting,
@@ -37,7 +35,7 @@ export const createAppointmentHandler = async (req: Request, res: Response) => {
     });
     await newAppointment.save();
 
-    res.status(200).json({ error: false, message: "Appointment created" });
+    res.status(200).json({ error: false, message: "Conference booked and awaited for approval" });
   } catch (err) {
     const error = err as Error;
     console.log(error.message);
@@ -45,12 +43,12 @@ export const createAppointmentHandler = async (req: Request, res: Response) => {
       .status(500)
       .json({
         error: true,
-        message: `Failed to create appointment. ${error.message}`,
+        message: `Failed to book conference. ${error.message}`,
       });
   }
 };
 
-export const verifyAppointmentHandler = (req: Request, res: Response) => {
+export const verifyConferenceHandler = (req: Request, res: Response) => {
   try {
     if (res.locals.user)
       res.status(200).json({ error: false, message: "verified" });

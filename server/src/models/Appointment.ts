@@ -1,0 +1,17 @@
+import { Schema, model } from "mongoose";
+
+const schema =  new Schema({
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    contact: { type: String, required: true },
+    appointment_with: { type: String, required: true },
+    reason_of_meeting: { type: String, required: true },
+    meeting_place: { type: String, required: true },
+    date: { type: String, required: true },
+    startTime: { type: String, required: true },
+    endTime: { type: String, required: true },
+    createdAt: { type: Date, default: Date.now, required: true }
+});
+
+const AppointmentModel = model("Appointment", schema);
+export default AppointmentModel;
