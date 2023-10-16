@@ -7,24 +7,22 @@ import { openModal } from "../components/Modal/modal";
 import Modal from "../components/Modal/Index";
 import AppointmentTimePicker from "../components/AppointmentTimePicker";
 import Loader from "../components/Loader";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../contexts/UserContext";
 
 export default function Conference() {
-    const [loading, setLoading] = useState(true);
     const [requestLoading, setRequestLoading] = useState(false);
     const [date, setDate] = useState({ startTime: "", endTime: "", date: "" });
+    const { user, loading } = useUser();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`${CONFERENCE_URL}`, {credentials: 'include'})
-        .then(res=> res.json())
-        .then((data) => {
-             if (data.error) {
-                toast.error("Unauhorized access, Please connect with your email.");
-                location.href = "/";
-            }
-             else setLoading(false);
-        })
-        .catch((err) => console.log(err))
-    }, [])
+        if(loading) return;
+        if(!user) {
+            toast.error("Unauhorized access, Please connect with your email.");
+            navigate("/");
+        }
+    }, [user, loading])
 
     function TimeAndDateToString() {
         if(date.date && date.startTime && date.endTime)
@@ -99,13 +97,13 @@ export default function Conference() {
                       </div>
                       
                       <div className="flex items-center gap-2">
-                          <input type="radio" name="meeting_place" id="conference-room-1" value={"Conference Room 1"} />
-                          <label htmlFor="conference-room-1">Conference Room 1</label>
+                          <input type="radio" name="meeting_place" id="board-room" value={"Board Room"} />
+                          <label htmlFor="board-room">Board Room</label>
                       </div>
 
                       <div className="flex items-center gap-2">
-                          <input type="radio" name="meeting_place" id="conference-room-2" value={"Conference Room 2"} />
-                          <label htmlFor="conference-room-2">Conference Room 2</label>
+                          <input type="radio" name="meeting_place" id="dlt-room" value={"DLT Room"} />
+                          <label htmlFor="dlt-room">DLT Room</label>
                       </div>
                   </div>
               </div>

@@ -55,9 +55,9 @@ googleAuthRoutes.get("/appointment/google/callback", (req, res) => {
 googleAuthRoutes.get("/conference/google/callback", (req, res) => {
   passport.authenticate(
     "conference-google-sign-in",
-    function (
+    async function (
       err: any,
-      user?: Express.User,
+      user?: Profile,
       info?: object | string | Array<string | undefined>,
       status?: number | Array<number | undefined>
     ) {
@@ -68,6 +68,13 @@ googleAuthRoutes.get("/conference/google/callback", (req, res) => {
           .json({ error: true, message: "Failed to authenticate" });
         return;
       }
+      //Add user to mongodb
+      await addUser(user);
+
+      res.cookie(COOKIE_NAME, createCookie('appointment', user), {
+        httpOnly: true,
+        maxAge: COOKIE_MAX_AGE,
+      });
       res.redirect(`${process.env.CLIENT_URL}/conference`);
     }
   )(req, res);

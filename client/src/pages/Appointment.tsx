@@ -7,6 +7,8 @@ import Modal from "../components/Modal/Index";
 import AppointmentTimePicker from "../components/AppointmentTimePicker";
 import { openModal } from "../components/Modal/modal";
 import { getDay, setTimeFormat } from "../libs";
+import { useUser } from "../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 // import { useUser } from "../contexts/UserContext";
 // import AppointmentTimePicker from "../components/AppointmentTimePicker";
 const meeting = [
@@ -14,25 +16,22 @@ const meeting = [
     {with:"Honorable Pro Vice Chancellor", place: "Pro VC Office"},
 ]
 export default function Appointment() {
-    // const { user } = useUser();
-    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
+    const { user, loading } = useUser();
     const [requestLoading, setRequestLoading] = useState(false);
     const [date, setDate] = useState({ startTime: "", endTime: "", date: "" });
     const [meetingWith, setMeetingWith] = useState(meeting[0]);
 
+    
     useEffect(() => {
-        fetch(`${APPOINTMENT_URL}`, {credentials: 'include'})
-        .then(res=> res.json())
-        .then((data) => {
-             if (data.error) {
-                toast.error("Unauhorized access, Please connect with your email.");
-                location.href = "/";
-            }
-             else setLoading(false);
-        })
-        .catch((err) => console.log(err))
-    }, [])
+        if(loading) return;
+        if(!user) {
+            toast.error("Unauhorized access, Please connect with your email.");
+            navigate("/");
+        }
+    }, [user, loading])
 
+    
     async function handleSubmit(e:FormEvent) {
         e.preventDefault();
         const formData = new FormData(e.target as HTMLFormElement);
@@ -47,26 +46,29 @@ export default function Appointment() {
                     ...data,
                     ...date,
                 };
-                const res = await fetch(`${APPOINTMENT_URL}/create`, {
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    method: "POST",
-                    credentials: "include",
-                    body: JSON.stringify(body),
-                })
-                const response = await res.json()
-                if (response.error) toast.error(`Unexpected error occured: ${response.message}`);
-                else {
-                    toast.success("Appointment has been created and awaited for review");
-                    (e.target as HTMLFormElement).reset();
-                }
+
+                setTimeout(async () => {
+                    const res = await fetch(`${APPOINTMENT_URL}/create`, {
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        method: "POST",
+                        credentials: "include",
+                        body: JSON.stringify(body),
+                    })
+                    const response = await res.json()
+                    if (response.error) toast.error(`Unexpected error occured: ${response.message}`);
+                    else {
+                        toast.success("Appointment has been created and awaited for review");
+                        (e.target as HTMLFormElement).reset();
+                    }
+                    setRequestLoading(false);
+                }, 1000)
             } catch (error) {
                 const err = error as Error;
-                console.log(err.message);
-            } finally {
                 setRequestLoading(false);
+                console.log(err.message);
             }
         }
     }

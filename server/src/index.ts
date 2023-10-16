@@ -10,6 +10,7 @@ import "./libs/passport";
 import appointmentRoutes from "./routes/appointment";
 import userRoutes from "./routes/user";
 import conferenceRoutes from "./routes/conference";
+import requestsRoutes from "./routes/requests";
 
 dotenv.config();
 
@@ -52,6 +53,7 @@ app.use("/v1/auth", authRoutes);
 app.use("/v1/appointment", appointmentRoutes);
 app.use("/v1/conference", conferenceRoutes);
 app.use("/v1/user", userRoutes);
+app.use("/v1/requests", requestsRoutes);
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

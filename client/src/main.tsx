@@ -11,6 +11,9 @@ import Appointment from './pages/Appointment.tsx';
 import Conference from './pages/Conference.tsx';
 import { ToastContainer } from 'react-toastify';
 import UserProvider from './contexts/UserContext.tsx';
+import AllRequests from './pages/AllRequests.tsx';
+import Conferences from './pages/Conerences.tsx';
+import Appointments from './pages/Appointments.tsx';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +27,18 @@ const router = createBrowserRouter([
   {
     path: "/conference",
     element: <Conference/>
+  },
+  {
+    path: "/all-requests",
+    element: <AllRequests/>
+  },
+  {
+    path: "/conferences",
+    element: <Conferences/>
+  },
+  {
+    path: "/appointments",
+    element: <Appointments/>
   }
 ]);
 

@@ -49,14 +49,22 @@ googleAuthRoutes.get("/appointment/google/callback", (req, res) => {
 });
 googleAuthRoutes.get("/conference/google/callback", (req, res) => {
     passport_1.default.authenticate("conference-google-sign-in", function (err, user, info, status) {
-        if (err) {
-            console.log(err);
-            res
-                .status(401)
-                .json({ error: true, message: "Failed to authenticate" });
-            return;
-        }
-        res.redirect(`${process.env.CLIENT_URL}/conference`);
+        return __awaiter(this, void 0, void 0, function* () {
+            if (err) {
+                console.log(err);
+                res
+                    .status(401)
+                    .json({ error: true, message: "Failed to authenticate" });
+                return;
+            }
+            //Add user to mongodb
+            yield (0, user_1.addUser)(user);
+            res.cookie(config_1.COOKIE_NAME, (0, cookies_1.createCookie)('appointment', user), {
+                httpOnly: true,
+                maxAge: config_1.COOKIE_MAX_AGE,
+            });
+            res.redirect(`${process.env.CLIENT_URL}/conference`);
+        });
     })(req, res);
 });
 googleAuthRoutes.get("/google/callback/failed", auth_1.googleAuthFailed);

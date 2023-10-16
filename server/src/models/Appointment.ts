@@ -10,6 +10,7 @@ const schema =  new Schema({
     date: { type: String, required: true },
     startTime: { type: String, required: true },
     endTime: { type: String, required: true },
+    status: { type: String, default: 'Pending' },
     createdAt: { type: Date, default: Date.now, required: true }
 });
 

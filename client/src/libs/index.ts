@@ -14,3 +14,10 @@ export function getDay(date: string) {
     if (!date.trim) return "";
     return DAYS[(new Date(date)).getDay()];
 }
+
+export function getDMYFormat(date: string) {
+    function pad(s:number) { return (s < 10) ? '0' + s : s; }
+
+    const d = new Date(date);
+    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/')
+}

@@ -2,6 +2,13 @@ import { sign } from 'jsonwebtoken';
 import {Profile, } from 'passport-google-oauth20';
 import { JWT_EXPIRES_IN } from './config';
 
+export type User = {
+    email: string;
+    name: string;
+    profileUrl: string;
+    path?: string; 
+}
+
 export const createCookie = (path:string, user?:Profile) => {
     //JSON web token
     if (!user) throw Error("Failed to create cookie");    
