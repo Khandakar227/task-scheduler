@@ -19,3 +19,10 @@ export const createCookie = (path:string, user?:Profile) => {
         path,
     }, process.env.JWT_SECRET as string, { expiresIn: JWT_EXPIRES_IN })
 }
+
+export const createAdminCookie = (name:string) => {
+    if (!name) throw Error("Failed to create cookie");
+    return sign({
+        name, role: 'admin'
+    },  process.env.JWT_SECRET as string, { expiresIn: JWT_EXPIRES_IN });
+}

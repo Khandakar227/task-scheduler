@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import AppointmentModel from "../models/Appointment";
-import {validationResult} from 'express-validator';
 
 export const createAppointmentHandler = async (req: Request, res: Response) => {
   try {
@@ -65,6 +64,63 @@ export const getAppointments = async (req: Request, res: Response) => {
       res.status(200).json({error: false, data });
 
     } catch (error) {
+        const err = error as Error;
+        console.log(err.message);
+        res
+        .status(500)
+        .json({
+            error: true,
+            message: `Unexpected error occured on the server. ${err.message}`,
+        });
+    }
+}
+/**
+ * Admin only
+ */
+export const getAllAppointments = async (req: Request, res: Response) => {
+    try {
+        const q = req.query;
+        console.log(q);
+
+        const appointments = await AppointmentModel.find();
+        res.status(200).json({error: false, data: appointments });
+    } catch (error) {
+        const err = error as Error;
+        console.log(err.message);
+        res
+        .status(500)
+        .json({
+            error: true,
+            message: `Unexpected error occured on the server. ${err.message}`,
+        });
+    }
+}
+/**
+ * Admin only
+ */
+export const updateAppointment = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+    } catch (error) {
+        const err = error as Error;
+        console.log(err.message);
+        res
+        .status(500)
+        .json({
+            error: true,
+            message: `Unexpected error occured on the server. ${err.message}`,
+        });
+    }
+}
+/**
+ * Admin only
+ */
+export const deleteAppointment = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        await AppointmentModel.findByIdAndDelete(id);
+        res.status(201).json({error: false, message: "Appointment Deleted"}); 
+      } catch (error) {
         const err = error as Error;
         console.log(err.message);
         res

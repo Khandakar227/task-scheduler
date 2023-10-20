@@ -11,6 +11,7 @@ import appointmentRoutes from "./routes/appointment";
 import userRoutes from "./routes/user";
 import conferenceRoutes from "./routes/conference";
 import requestsRoutes from "./routes/requests";
+import adminRoutes from "./routes/admin";
 
 dotenv.config();
 
@@ -49,6 +50,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/v1/admin", adminRoutes);
 app.use("/v1/auth", authRoutes);
 app.use("/v1/appointment", appointmentRoutes);
 app.use("/v1/conference", conferenceRoutes);

@@ -23,3 +23,22 @@ export const getAllRequests = async (req: Request, res: Response) => {
         });
     }
 }
+
+export const getAllRequestsForAdmin = async (req: Request, res: Response) => {
+    try {
+        const appointments = await AppointmentModel.find();
+        const conferences = await ConferenceModel.find();
+
+        res.status(200).json({error: false, data: [...appointments, ...conferences]});
+ 
+    } catch (error) {
+        const err = error as Error;
+        console.log(err.message);
+        res
+        .status(500)
+        .json({
+            error: true,
+            message: `Unexpected error occured on the server. ${err.message}`,
+        });
+    }
+}

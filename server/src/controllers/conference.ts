@@ -74,3 +74,52 @@ export const getConferences = async (req: Request, res: Response) => {
       });
   }
 }
+
+export const getAllConferences = async (req: Request, res: Response) => {
+    try {
+      const data = await ConferenceModel.find();
+      res.status(200).json({error: false, data });
+    } catch (error) {
+        const err = error as Error;
+        console.log(err.message);
+        res
+        .status(500)
+        .json({
+            error: true,
+            message: `Unexpected error occured on the server. ${err.message}`,
+        });
+    }
+}
+
+export const updateConference = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+
+    } catch (error) {
+        const err = error as Error;
+        console.log(err.message);
+        res
+        .status(500)
+        .json({
+            error: true,
+            message: `Unexpected error occured on the server. ${err.message}`,
+        });
+    }
+}
+
+export const deleteConference = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        await ConferenceModel.findByIdAndDelete(id);
+        res.status(201).json({error: false, message: "Conference Deleted"});
+    } catch (error) {
+        const err = error as Error;
+        console.log(err.message);
+        res
+        .status(500)
+        .json({
+            error: true,
+            message: `Unexpected error occured on the server. ${err.message}`,
+        });
+    }
+}
