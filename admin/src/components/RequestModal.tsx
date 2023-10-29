@@ -4,6 +4,8 @@ import { openModal } from "./Modal/modal";
 import Modal from "./Modal/Index";
 import TimePicker from "./TimePicker";
 import { RequestProp } from "../libs/type";
+import { toast } from "react-toastify";
+import { APPOINMENTS_API_URL } from "../assets/config";
 
 interface Props extends RequestProp {
     type: "appointment" | "booking";
@@ -17,10 +19,9 @@ const meeting = [
 
 function RequestModal(props:Props) {
     const [requestLoading, setRequestLoading] = useState(false);
-    const [date, setDate] = useState({ startTime: "", endTime: "", date: "" });
+    const [date, setDate] = useState({ startTime: props.startTime, endTime: props.endTime, date: props.date });
     const [meetingWith, setMeetingWith] = useState(meeting[0]);
 
-    console.log(props)
     useEffect(() => {
         meeting.forEach(m => {
             if(m.with == props.appointment_with) setMeetingWith(m);
@@ -43,8 +44,31 @@ function RequestModal(props:Props) {
 
     
     async function handleSubmit(e:FormEvent) {
-        e.preventDefault();
-        setRequestLoading(true);
+        try {
+            e.preventDefault();
+            setRequestLoading(true);
+            const formData = new FormData(e.target as HTMLFormElement);
+            const data = Object.fromEntries(formData);
+            if(!(date.date && date.endTime && date.startTime)) {
+                toast.error("It seems date time is not selected");
+                return;
+            }
+            const response = await fetch(`${APPOINMENTS_API_URL}/${props._id}`, {
+                method: 'PUT',
+                credentials: 'include',
+                body: JSON.stringify({...data, ...date}),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const res = await response.json();
+            if(res.error) toast.error(res.message);
+            else toast.success("Appointment Updated");
+            setRequestLoading(false);
+        } catch (error) {
+            const err = error as Error;
+            console.log(err);
+            toast.error(err.message);
+            setRequestLoading(false);
+        }
     }
     return (
     <>
@@ -54,11 +78,11 @@ function RequestModal(props:Props) {
 
             <div className="flex sm:flex-row flex-col justify-between sm:items-center md:gap-8 gap-4 w-full max-w-[35rem]">
                 <div className="flex items-center gap-2">
-                    <input onChange={onMeetingWithChange} type="radio" name="appointment_with" id="vc" value={meeting[0].with} checked={meeting[0].with == props.appointment_with} required/>
+                    <input onChange={onMeetingWithChange} type="radio" name="appointment_with" id="vc" value={meeting[0].with} defaultChecked={meeting[0].with == props.appointment_with} required/>
                     <label className="whitespace-nowrap" htmlFor="vc">{meeting[0].with}</label>
                 </div>
                 <div className="flex items-center gap-2">
-                    <input onChange={onMeetingWithChange} type="radio" name="appointment_with" id="pvc" value={meeting[1].with} checked={meeting[1].with == props.appointment_with} required/>
+                    <input onChange={onMeetingWithChange} type="radio" name="appointment_with" id="pvc" value={meeting[1].with} defaultChecked={meeting[1].with == props.appointment_with} required/>
                     <label className="whitespace-nowrap" htmlFor="pvc">{meeting[1].with}</label>
                 </div>
             </div>
@@ -93,17 +117,17 @@ function RequestModal(props:Props) {
             
             <div className="flex sm:flex-row flex-col justify-between sm:items-center md:gap-8 gap-4 w-full max-w-[35rem]">
                 <div className="flex items-center gap-2">
-                    <input type="radio" name="meeting_place" id="vc-office" value={meetingWith.place} checked={props.meeting_place == meetingWith.place} />
+                    <input type="radio" name="meeting_place" id="vc-office" value={meetingWith.place} defaultChecked={props.meeting_place == meetingWith.place} />
                     <label className="whitespace-nowrap" htmlFor="vc-office">{meetingWith.place}</label>
                 </div>
                 
                 <div className="flex items-center gap-2">
-                    <input type="radio" name="meeting_place" id="board-room" value={"Board Room"} checked={props.meeting_place == "Board Room"} />
+                    <input type="radio" name="meeting_place" id="board-room" value={"Board Room"} defaultChecked={props.meeting_place == "Board Room"} />
                     <label className="whitespace-nowrap" htmlFor="board-room">Board Room</label>
                 </div>
 
                 <div className="flex items-center gap-2">
-                    <input type="radio" name="meeting_place" id="committee-room" value={"Committee Room"} checked={props.meeting_place == "Committee Room"} />
+                    <input type="radio" name="meeting_place" id="committee-room" value={"Committee Room"} defaultChecked={props.meeting_place == "Committee Room"} />
                     <label className="whitespace-nowrap" htmlFor="committee-room">Committee Room</label>
                 </div>
             </div>

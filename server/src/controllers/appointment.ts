@@ -101,6 +101,30 @@ export const getAllAppointments = async (req: Request, res: Response) => {
 export const updateAppointment = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
+      const {
+        appointment_with,
+        name,
+        contact,
+        reason_of_meeting,
+        meeting_place,
+        date,
+        startTime,
+        endTime,
+      } = req.body;
+      
+      await AppointmentModel.findByIdAndUpdate( id,{
+        $set: {
+          appointment_with,
+          name,
+          contact,
+          reason_of_meeting,
+          meeting_place,
+          date,
+          startTime,
+          endTime
+        }
+      });
+      res.status(200).json({error: false, message: "Updated"});
     } catch (error) {
         const err = error as Error;
         console.log(err.message);
@@ -121,6 +145,30 @@ export const deleteAppointment = async (req: Request, res: Response) => {
         await AppointmentModel.findByIdAndDelete(id);
         res.status(201).json({error: false, message: "Appointment Deleted"}); 
       } catch (error) {
+        const err = error as Error;
+        console.log(err.message);
+        res
+        .status(500)
+        .json({
+            error: true,
+            message: `Unexpected error occured on the server. ${err.message}`,
+        });
+    }
+}
+
+
+export const changeStatus = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const { status } = req.body;
+      await AppointmentModel.findByIdAndUpdate(id, {
+        $set: {
+          status: (status as string).toLowerCase() == 'declined' ? 'Declined' :
+          (status as string).toLowerCase() == 'approved' ? 'Approved' : 'Pending'
+        }        
+      });
+      res.status(200).json({error: false, message: "Appointment status changed"});
+    } catch (error) {
         const err = error as Error;
         console.log(err.message);
         res

@@ -13,6 +13,7 @@ import NotFound from './pages/error404'
 import AuthGuard from './components/AuthGuard';
 import Appointments from './pages/Appointments';
 import Conferences from './pages/Conferences';
+import PDFPage from './pages/PDFPage';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "/conferences",
     element: <AuthGuard for={'admin'}><Conferences /></AuthGuard>,
+  },
+  {
+    path: "/pdf",
+    element: <AuthGuard for="admin"><PDFPage /></AuthGuard>
   },
   {
     path: "*",

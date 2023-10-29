@@ -66,6 +66,7 @@ export default function Conferences() {
                         {
                             requests.map(req => 
                             <RequestCard
+                            key={req._id}
                             {...req}
                             type={req.appointment_with ? "appointment" : "booking"}
                             />)

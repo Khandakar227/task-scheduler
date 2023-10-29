@@ -3,12 +3,15 @@ import { getDMYFormat, getDay, setTimeFormat } from "../libs";
 import RequestModal from "./RequestModal";
 import { AiOutlineClose } from "react-icons/ai";
 import { RequestProp } from "../libs/type";
+import { APPOINMENTS_API_URL, CONFERENCES_API_URL } from "../assets/config";
+import { toast } from "react-toastify";
 
 interface Props extends RequestProp {
     type: "appointment" | "booking";
 }
 
 export default function RequestCard(props:Props) {
+    const [status, setStatus] = useState<"Approved" | "Declined" | "Pending">(props.status);
     const [showReason, setShowReason] = useState(false);
     const [showEditForm, setEditForm] = useState(false);
 
@@ -20,6 +23,39 @@ export default function RequestCard(props:Props) {
     
     function closeEdtForm() {
         setEditForm(false);
+    }
+
+    async function acceptRequest () {
+        const _status = 'Approved';
+        const response = await fetch(`${props.type == 'appointment' ? APPOINMENTS_API_URL : CONFERENCES_API_URL}/update-status/${props._id}`, {
+            method: 'PUT',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: _status })
+        });
+        const data = await response.json();
+        if(data.error) {
+            toast.error(data.message);
+        } else {
+            toast.success(data.message);
+            setStatus(_status);
+        }
+    }
+    async function declineRequest() {
+        const _status = 'Declined';
+        const response = await fetch(`${props.type == 'appointment' ? APPOINMENTS_API_URL : CONFERENCES_API_URL}/update-status/${props._id}`, {
+            method: 'PUT',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: _status })
+        });
+        const data = await response.json();
+        if(data.error) {
+            toast.error(data.message);
+        } else {
+            toast.success(data.message);
+            setStatus(_status);
+        }
     }
     return (
     <>
@@ -34,6 +70,7 @@ export default function RequestCard(props:Props) {
                 }
                 </h2>
                 <p className="font-semibold text-lg">Request from: {props.name}</p>
+                <p>Email: {props.email}</p>
                 <div className="[&>*:nth-child(odd)]:bg-slate-50 md:[&>*:nth-child(odd)]:bg-white pt-4 flex flex-col md:flex-row justify-between font-semibold max-w-3xl text-base md:text-sm">
                     <span className="p-1">Date: {getDay(props.date)} - {getDMYFormat(props.date)}</span>
                     <span className="p-1">Start Time: {setTimeFormat(props.startTime, '12')}</span>
@@ -52,21 +89,22 @@ export default function RequestCard(props:Props) {
                             </button>
                             
                             <span
-                                className={`font-medium p-2 ${props.status == 'Pending' ? 'text-yellow-600' : props.status == 'Approved' ? 'text-green-600' : 'text-red-600' }`}
+                                className={`font-medium p-2 ${status == 'Pending' ? 'text-yellow-600' : status == 'Approved' ? 'text-green-600' : 'text-red-600' }`}
                             >
-                                {props.status}
+                                {status}
                             </span>
                         </div>
                         <div className="max-w-[310px] w-full">
                             <button onClick={onShowEditForm} className="px-3 py-1 bg-gray-300 rounded-md font-medium shadow">
                                 Edit request
                             </button>
-                            <button className="mx-4 px-3 py-1 bg-green-400 rounded-md font-medium shadow">
+                            {status != 'Approved' && (<button onClick={acceptRequest} className="mx-4 px-3 py-1 bg-green-400 rounded-md font-medium shadow">
                                 Accept
-                            </button>
-                            <button className="mx-4 px-3 py-1 bg-red-400 rounded-md font-medium shadow">
+                            </button>)}
+                            {status != 'Declined' && (<button onClick={declineRequest} className="mx-4 px-3 py-1 bg-red-400 rounded-md font-medium shadow">
                                 Decline
-                            </button>
+                            </button>)}                        
+                            
                         </div>
                     </div>
                 </div>

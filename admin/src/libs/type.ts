@@ -12,3 +12,5 @@ export type RequestProp = {
   status: "Approved" | "Declined" | "Pending";
   _id: string;
 };
+
+export type UptoType = "today"|"7days"|"30days"|"";

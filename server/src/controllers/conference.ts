@@ -92,19 +92,40 @@ export const getAllConferences = async (req: Request, res: Response) => {
 }
 
 export const updateConference = async (req: Request, res: Response) => {
-    try {
-        const { id } = req.params;
-
-    } catch (error) {
-        const err = error as Error;
-        console.log(err.message);
-        res
-        .status(500)
-        .json({
-            error: true,
-            message: `Unexpected error occured on the server. ${err.message}`,
-        });
-    }
+  try {
+    const { id } = req.params;
+    const {
+      name,
+      contact,
+      reason_of_meeting,
+      meeting_place,
+      date,
+      startTime,
+      endTime,
+    } = req.body;
+    
+    await ConferenceModel.findByIdAndUpdate( id,{
+      $set: {
+        name,
+        contact,
+        reason_of_meeting,
+        meeting_place,
+        date,
+        startTime,
+        endTime
+      }
+    });
+    res.status(200).json({error: false, message: "Updated"});
+  } catch (error) {
+      const err = error as Error;
+      console.log(err.message);
+      res
+      .status(500)
+      .json({
+          error: true,
+          message: `Unexpected error occured on the server. ${err.message}`,
+      });
+  }
 }
 
 export const deleteConference = async (req: Request, res: Response) => {
@@ -122,4 +143,27 @@ export const deleteConference = async (req: Request, res: Response) => {
             message: `Unexpected error occured on the server. ${err.message}`,
         });
     }
+}
+
+export const changeStatus = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    await ConferenceModel.findByIdAndUpdate(id, {
+      $set: {
+        status: (status as string).toLowerCase() == 'declined' ? 'Declined' :
+        (status as string).toLowerCase() == 'approved' ? 'Approved' : 'Pending'
+      }        
+    });
+    res.status(200).json({error: false, message: "Conference status changed"});
+  } catch (error) {
+      const err = error as Error;
+      console.log(err.message);
+      res
+      .status(500)
+      .json({
+          error: true,
+          message: `Unexpected error occured on the server. ${err.message}`,
+      });
+  }
 }

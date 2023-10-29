@@ -1,5 +1,5 @@
 import express from "express";
-import { createAppointmentHandler, deleteAppointment, getAllAppointments, getAppointments, updateAppointment } from "../controllers/appointment";
+import { changeStatus, createAppointmentHandler, deleteAppointment, getAllAppointments, getAppointments, updateAppointment } from "../controllers/appointment";
 import { verifyAdminCookie, verifyCookie } from "../middlewares/cookie";
 import { AppointmentValidityChecker } from "../libs/validator";
 import validationErrorHandler from "../middlewares/validityHandler";
@@ -10,7 +10,8 @@ appointmentRoutes.post("/create", ...AppointmentValidityChecker, validationError
 appointmentRoutes.get("/", verifyCookie, getAppointments );
 // Admin only
 appointmentRoutes.get("/admin", verifyAdminCookie, getAllAppointments);
-appointmentRoutes.put("/:id", verifyAdminCookie, updateAppointment);
+appointmentRoutes.put("/admin/:id", verifyAdminCookie, updateAppointment);
+appointmentRoutes.put("/admin/update-status/:id", verifyAdminCookie, changeStatus);
 appointmentRoutes.delete("/:id", verifyAdminCookie, deleteAppointment);
 
 export default appointmentRoutes;

@@ -7,7 +7,7 @@ const schema =  new Schema({
     appointment_with: { type: String, required: true },
     reason_of_meeting: { type: String, required: true },
     meeting_place: { type: String, required: true },
-    date: { type: String, required: true },
+    date: { type: Date, required: true },
     startTime: { type: String, required: true },
     endTime: { type: String, required: true },
     status: { type: String, default: 'Pending' },

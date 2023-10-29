@@ -19,7 +19,7 @@ export default function ConnectEmailModal() {
 
     return (
     <div className="bg-white rounded-lg px-6 py-10 max-w-lg w-full z-10">
-        <h2 className="text-2xl font-bold">Verify your Identity with IUT Email</h2>
+        <h2 className="text-2xl font-bold">Verify your Identity with your Email</h2>
         <div className="pt-10">
             <a href={type == 'appointment' ? APPOINTMENT_SIGNIN_URL : CONFERENCE_SIGNIN_URL}>
                 <button className="bg-green-600 py-3 px-8 flex rounded-3xl text-white text-xl font-bold mx-auto"> Continue </button>

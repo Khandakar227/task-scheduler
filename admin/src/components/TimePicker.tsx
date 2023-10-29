@@ -50,6 +50,7 @@ export default function TimePicker(props:Props) {
                 type="date"
                 min={new Date().toISOString().split('T')[0]}
                 max={getMaxDate()}
+                value={props?.date?.date}
                 onChange={e=> props.setDate(d => ({...d, date: e.target.value}))} 
                 name="date"
                 id="date"
@@ -76,6 +77,7 @@ export default function TimePicker(props:Props) {
                 ref={endTimeRef}
                 type="time"
                 min={props.date?.startTime}
+                value={props?.date?.endTime}
                 onChange={e=> props.setDate(d => ({...d, endTime: e.target.value}))}
                 name="endTime" 
                 id="end-time"
