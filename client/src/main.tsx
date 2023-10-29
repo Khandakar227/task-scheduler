@@ -14,6 +14,7 @@ import UserProvider from './contexts/UserContext.tsx';
 import AllRequests from './pages/AllRequests.tsx';
 import Conferences from './pages/Conerences.tsx';
 import Appointments from './pages/Appointments.tsx';
+import DLTPdfPage from './pages/DLTPdfPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: "/appointments",
     element: <Appointments/>
+  },
+  {
+    path: "/dlt-pdf",
+    element: <DLTPdfPage/>
   }
 ]);
 
