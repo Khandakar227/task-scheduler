@@ -99,6 +99,110 @@ export default function DLTPDF() {
                     <Text> (am/pm), Tentative Duration of the Event:</Text>
                     <View style={{...styles.line, minWidth: 55}}></View>
                 </View>
+
+                <Text style={{fontWeight: 'bold', marginTop: 16}}>a) Technical Support (required from ICT Centre):</Text>
+                <View style={{flexDirection: 'row', alignItems: 'center', gap:4}}>
+                    <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <Text>Display,{'  '}</Text>
+
+                    <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <Text>Smart Board,{'  '}</Text>                    
+
+                    <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <Text>Projector,{'  '}</Text>
+
+                    <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <Text>Writing Board,{'  '}</Text>
+
+                    <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <Text>Microphone (Wireless/Handhold),{'  '}</Text>
+                    
+                    <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <Text>Laptop,{'  '}</Text>
+                </View>
+
+                <View style={{flexDirection: 'row', alignItems: 'center', gap:4}}>
+                    <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <Text>WiFi,{'  '}</Text>
+                    
+                    <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <Text>Technical Person,{'  '}</Text>
+                </View>
+
+                <View style={{flexDirection: 'row', alignItems: 'center', gap:4}}>
+                    <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <Text>Zoom Support (inform at least 5 days earlier for BdREN technical support),{'  '}</Text>
+                </View>
+                
+                <View style={{flexDirection: 'row', alignItems: 'baseline', gap:4}}>
+                    <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <View style={{minWidth: 260}}>
+                        <Text>Other Support, If required: </Text>
+                        <View style={{...styles.line, marginLeft: 127}}></View>
+                    </View>
+                </View>
+
+                <Text style={{fontWeight: 'bold', marginTop: 12}}>b) Logistics Support (required from Engineering Office):</Text>
+                <View style={{flexDirection: 'row', alignItems: 'center', gap:1}}>
+                    <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <Text>Font Desk with Table Cloth,{'  '}</Text>
+
+                    <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <Text>Additional Chairs,{'  '}</Text>                    
+
+                    <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <Text>Flowers with vase,{'  '}</Text>
+
+                    <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <Text>Others, if{'  '}</Text>
+                </View>
+                <View style={{minWidth: 260}}>
+                    <Text>required: </Text>
+                    <View style={{...styles.line, marginLeft: 45, maxWidth: 100}}></View>
+                </View>
+
+                <View style={{flexDirection: 'row', alignItems: 'center', gap:2, marginTop: 12}}>
+                    <Text style={{fontWeight: 'bold'}}>c) Official Coverage:</Text>
+                    <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <Text>Photography,{'  '}</Text>                    
+
+                    <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <Text>Video Recording.{'  '}</Text>
+                </View>
+
+                <Text style={{fontWeight: 'bold', marginTop: 12}}>d) Refreshment Support at Executive Lounge at the Library:</Text>
+                <View style={{flexDirection: 'row', alignItems: 'center', gap:2}}>
+                    <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <Text>Cafeteria Arrrangement (Food and Services are arranged by particular Department/Office).</Text>
+                </View>
+                <View style={{flexDirection: 'row', alignItems: 'flex-start', gap:2}}>
+                    <Text style={{marginTop: 6, padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <Text style={{maxWidth: 490}}>Own Arrrangement by Particular Department/Office (Food and Services are arranged by particular Department/Office).</Text>
+                </View>
+
+                <View style={{flexDirection: 'row', alignItems: 'flex-start', gap:2, marginTop: 16}}>
+                    <Text style={{marginTop: 3, padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <View style={{width: '100%'}}>
+                        <Text>Number of participants (Faculty Member/Head of Office) (maximum 20):</Text>
+                        <View style={{...styles.line, marginLeft: 345, maxWidth: 80}}></View>
+                    </View>
+                </View>
+
+                <Text style={{marginTop: 12, fontWeight: "bold", textDecoration: 'underline', marginBottom: 26}}>N.B: Food and Beverage are not allowed inside the DLT Room.</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', margin: '16 auto', gap: 150}}>
+                    <View>
+                        <View style={{...styles.line, maxWidth: 130, marginBottom: 0}}></View>
+                        <Text style={{fontWeight: 'bold'}}>Signature of the Applicant</Text>
+                    </View>
+                    <View>
+                        <View style={{...styles.line, maxWidth: 130, marginBottom: 0}}></View>
+                        <Text style={{fontWeight: 'bold'}}>Signature of the Head</Text>
+                    </View>
+                </View>
+
+                <View style={{...styles.line}}></View>
+
+                <Text style={{textDecoration: 'underline'}}>For Library and Documentation Office:</Text>
             </View>
         </Page>
       </Document>
