@@ -41,7 +41,7 @@ export default function DLTPDF() {
 
             <Text style={{paddingTop: 22, textAlign: 'center', fontWeight: 'semibold', fontSize: 11, textDecoration: 'underline'}}>Booking Form: Distance Learning Theatre (DLT) at the IUT Library</Text>
             
-            <View style={{border: '1px solid black', marginRight: 20, fontSize: 10, marginTop: 16, padding: 4}}>
+            <View style={{border: '1px solid black', marginRight: 20, fontSize: 10, marginTop: 12, padding: 4}}>
                 <View style={{justifyContent: 'space-between', flexDirection: 'row', gap: 24}}>
                     <View style={{flex: 'auto'}}>
                         <Text>Name: </Text>
@@ -53,7 +53,7 @@ export default function DLTPDF() {
                     </View>
                 </View>
 
-                <View style={{justifyContent: 'space-between', flexDirection: 'row', gap: 16}}>
+                <View style={{justifyContent: 'space-between', flexDirection: 'row', gap: 12}}>
                     <View style={{flex: 'auto'}}>
                         <Text>Designation: </Text>
                         <View style={{...styles.line, marginLeft: 58}} />
@@ -64,7 +64,7 @@ export default function DLTPDF() {
                     </View>
                 </View>
                 
-                <View style={{justifyContent: 'space-between', flexDirection: 'row', gap: 16}}>
+                <View style={{justifyContent: 'space-between', flexDirection: 'row', gap: 12}}>
                     <View style={{flex: 'auto'}}>
                         <Text>Mobile no: </Text>
                         <View style={{...styles.line, marginLeft: 52}} />
@@ -100,7 +100,7 @@ export default function DLTPDF() {
                     <View style={{...styles.line, minWidth: 55}}></View>
                 </View>
 
-                <Text style={{fontWeight: 'bold', marginTop: 16}}>a) Technical Support (required from ICT Centre):</Text>
+                <Text style={{fontWeight: 'bold', marginTop: 12}}>a) Technical Support (required from ICT Centre):</Text>
                 <View style={{flexDirection: 'row', alignItems: 'center', gap:4}}>
                     <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
                     <Text>Display,{'  '}</Text>
@@ -142,7 +142,7 @@ export default function DLTPDF() {
                     </View>
                 </View>
 
-                <Text style={{fontWeight: 'bold', marginTop: 12}}>b) Logistics Support (required from Engineering Office):</Text>
+                <Text style={{fontWeight: 'bold', marginTop: 8}}>b) Logistics Support (required from Engineering Office):</Text>
                 <View style={{flexDirection: 'row', alignItems: 'center', gap:1}}>
                     <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
                     <Text>Font Desk with Table Cloth,{'  '}</Text>
@@ -161,7 +161,7 @@ export default function DLTPDF() {
                     <View style={{...styles.line, marginLeft: 45, maxWidth: 100}}></View>
                 </View>
 
-                <View style={{flexDirection: 'row', alignItems: 'center', gap:2, marginTop: 12}}>
+                <View style={{flexDirection: 'row', alignItems: 'center', gap:2, marginTop: 8}}>
                     <Text style={{fontWeight: 'bold'}}>c) Official Coverage:</Text>
                     <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
                     <Text>Photography,{'  '}</Text>                    
@@ -170,7 +170,7 @@ export default function DLTPDF() {
                     <Text>Video Recording.{'  '}</Text>
                 </View>
 
-                <Text style={{fontWeight: 'bold', marginTop: 12}}>d) Refreshment Support at Executive Lounge at the Library:</Text>
+                <Text style={{fontWeight: 'bold', marginTop: 8}}>d) Refreshment Support at Executive Lounge at the Library:</Text>
                 <View style={{flexDirection: 'row', alignItems: 'center', gap:2}}>
                     <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
                     <Text>Cafeteria Arrrangement (Food and Services are arranged by particular Department/Office).</Text>
@@ -180,7 +180,7 @@ export default function DLTPDF() {
                     <Text style={{maxWidth: 490}}>Own Arrrangement by Particular Department/Office (Food and Services are arranged by particular Department/Office).</Text>
                 </View>
 
-                <View style={{flexDirection: 'row', alignItems: 'flex-start', gap:2, marginTop: 16}}>
+                <View style={{flexDirection: 'row', alignItems: 'flex-start', gap:2, marginTop: 8}}>
                     <Text style={{marginTop: 3, padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
                     <View style={{width: '100%'}}>
                         <Text>Number of participants (Faculty Member/Head of Office) (maximum 20):</Text>
@@ -188,8 +188,8 @@ export default function DLTPDF() {
                     </View>
                 </View>
 
-                <Text style={{marginTop: 12, fontWeight: "bold", textDecoration: 'underline', marginBottom: 26}}>N.B: Food and Beverage are not allowed inside the DLT Room.</Text>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', margin: '16 auto', gap: 150}}>
+                <Text style={{marginTop: 12, fontWeight: "bold", textDecoration: 'underline', marginBottom: 20}}>N.B: Food and Beverage are not allowed inside the DLT Room.</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', margin: '8 auto', gap: 150}}>
                     <View>
                         <View style={{...styles.line, maxWidth: 130, marginBottom: 0}}></View>
                         <Text style={{fontWeight: 'bold'}}>Signature of the Applicant</Text>
@@ -202,7 +202,38 @@ export default function DLTPDF() {
 
                 <View style={{...styles.line}}></View>
 
-                <Text style={{textDecoration: 'underline'}}>For Library and Documentation Office:</Text>
+                <Text style={{textDecoration: 'underline', marginBottom: 8}}>For Library and Documentation Office:</Text>
+                <View style={{flexDirection: 'row', alignItems: 'center', gap:2}}>
+                    <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <Text>Copy to the ICT Centre.</Text>
+                </View>
+                <View style={{flexDirection: 'row', alignItems: 'center', gap:2}}>
+                    <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <Text>Copy to the Engineering Office.</Text>
+                </View>
+                <View style={{flexDirection: 'row', alignItems: 'center', gap:2}}>
+                    <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <Text>Copy to the Cairman, Cafeteria, Committee.</Text>
+                </View>
+                <View style={{flexDirection: 'row', alignItems: 'center', gap:2}}>
+                    <Text style={{padding:2, border: '1px solid black', width: 9, height: 9}}></Text>
+                    <Text>Copy to the Audio Visual Instructor.</Text>
+                </View>
+                <Text style={{marginLeft: 85}}>-for taking necessary arrangement as per the requirement of the above event.</Text>
+                <Text style={{marginTop: 8}}>Copy to: PS to Vice-Chancelior: For the kind information of the Vice-Chancellor.</Text>
+                <Text style={{marginTop: 8}}>Remarks from Library and Documentation Office (if any):</Text>
+
+                <View style={{flexDirection: 'row', marginTop: 8, marginBottom: 8}}>
+                    <Text>Prof. Dr. Khondokar Habibul Kabjr, Library in Charge:</Text>
+                    <View style={{marginLeft: 12}}>
+                        <Text>Signatue: </Text>
+                        <View style={{...styles.line, marginLeft: 45, minWidth: 70}}></View>
+                    </View>
+                    <View>
+                        <Text>, {'     '} Date: </Text>
+                        <View style={{...styles.line, marginLeft: 45, minWidth: 60}}></View>
+                    </View>
+                </View>
             </View>
         </Page>
       </Document>

@@ -25,7 +25,7 @@ export default function Appointment() {
     
     useEffect(() => {
         if(loading) return;
-        if(!user) {
+        if(!user || !user?.email) {
             toast.error("Unauhorized access, Please connect with your email.");
             navigate("/");
         }
