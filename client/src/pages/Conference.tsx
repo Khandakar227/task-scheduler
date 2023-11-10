@@ -16,11 +16,14 @@ const rooms = ['VC Office', 'Board Room', 'DLT Room'];
 export default function Conference() {
     const [requestLoading, setRequestLoading] = useState(false);
     const [date, setDate] = useState({ startTime: "", endTime: "", date: "" });
-    const [techSupports, setTechSupports] = useState([] as string[]);
-    const [logisticsSupports, setLogisticsSupports] = useState([] as string[]);
     const [room, setRoom] = useState(rooms[0]);
     const { user, loading } = useUser();
     const navigate = useNavigate();
+
+    const [techSupports, setTechSupports] = useState([] as string[]);
+    const [logisticsSupports, setLogisticsSupports] = useState([] as string[]);
+    const [refreshmentSupports, setRefreshmentSupports] = useState([] as string[]);
+    const [officialCoverage, setOfficialCoverage] = useState([] as string[]);
 
     useEffect(() => {
         if (loading) return;
@@ -82,7 +85,13 @@ export default function Conference() {
                     }
                 } else {
                     // DLT form handler
-                    console.log({...data, tech_supports:techSupports})
+                    console.log({
+                        ...data,
+                        tech_supports: techSupports,
+                        refreshment_supports: refreshmentSupports,
+                        official_coverage: officialCoverage,
+                        logistics_supports: logisticsSupports
+                    })
                 }
             } catch (error) {
                 const err = error as Error;
@@ -126,10 +135,14 @@ export default function Conference() {
                             </div>
                             {
                                 room === rooms[2] ? <DLTForm
-                                techSupports={techSupports} 
-                                setTechSupports={setTechSupports}
-                                logisticsSupports={logisticsSupports}
-                                setLogisticsSupports={setLogisticsSupports}
+                                    techSupports={techSupports}
+                                    refreshmentSupports={refreshmentSupports}
+                                    logisticsSupports={logisticsSupports}
+                                    officialCoverage={officialCoverage}
+                                    setTechSupports={setTechSupports}
+                                    setLogisticsSupports={setLogisticsSupports}
+                                    setRefreshmentSupports={setRefreshmentSupports}
+                                    setOfficialCoverage={setOfficialCoverage}
                                 />
                                     :
                                     (

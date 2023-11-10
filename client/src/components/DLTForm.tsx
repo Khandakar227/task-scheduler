@@ -36,13 +36,19 @@ const designation_posts = [
 type DLTFormProps = {
   techSupports?: string [];
   logisticsSupports?: string [];
+  refreshmentSupports?: string [];
+  officialCoverage?: string [];
   setTechSupports: (vals:string []) => void;
   setLogisticsSupports: (vals:string []) => void;
+  setRefreshmentSupports: (vals:string []) => void;
+  setOfficialCoverage: (vals:string []) => void;
 }
 
 export default function DLTForm(props:DLTFormProps) {
   const [techSupport, _setTechSupports] = useState({} as { [key: string]: boolean });
   const [logisticsSupports, _setLogisticsSupports] = useState({} as { [key: string]: boolean });
+  const [refreshmentSupports, _setRefreshmentSupports] = useState({} as { [key: string]: boolean });
+  const [officialCoverage, _setOfficialCoverage] = useState({} as { [key: string]: boolean });
 
   useEffect(() => {
     const arr = [] as string[];
@@ -61,6 +67,24 @@ export default function DLTForm(props:DLTFormProps) {
     props.setLogisticsSupports(arr);
   
   }, [logisticsSupports])
+
+  useEffect(() => {
+    const arr = [] as string[];
+    Object.keys(refreshmentSupports).forEach((key) => {
+      if (refreshmentSupports[key]) arr.push(key);
+    });
+    props.setRefreshmentSupports(arr);
+  
+  }, [refreshmentSupports])
+
+  useEffect(() => {
+    const arr = [] as string[];
+    Object.keys(officialCoverage).forEach((key) => {
+      if (officialCoverage[key]) arr.push(key);
+    });
+    props.setOfficialCoverage(arr);
+  
+  }, [officialCoverage])
 
   function getDateTime(date: Date) {
     const year = date.getFullYear();
@@ -82,7 +106,17 @@ export default function DLTForm(props:DLTFormProps) {
     _setLogisticsSupports(v => ({ ...v, [key]: checked }));
   }
 
-  function handleOfficialCoverageCheckbox(e: ChangeEvent) {}
+  function handleOfficialCoverageCheckbox(e: ChangeEvent) {
+    const key = (e.target as HTMLInputElement).value;
+    const checked = (e.target as HTMLInputElement).checked;
+    _setOfficialCoverage(v => ({ ...v, [key]: checked }));
+  }
+
+  function handleRefreshmentSupportsCheckbox(e: ChangeEvent) {
+    const key = (e.target as HTMLInputElement).value;
+    const checked = (e.target as HTMLInputElement).checked;
+    _setRefreshmentSupports(v => ({ ...v, [key]: checked }));
+  }
   return (
     <div className="py-12 px-4 mx-auto max-w-2xl my-12 border rounded-md">
       <h2 className="font-bold py-2 text-xl text-center"> Distant Library Theatre Form </h2>
@@ -217,6 +251,16 @@ export default function DLTForm(props:DLTFormProps) {
             {ls}
           </label>
         ))}
+        <div className="flex">
+          <label className="block min-w-max px-4" htmlFor="logistics_support_reason"> If Required: </label>
+          <input
+            className="w-full outline-none border-zinc-400 border-b"
+            type="text"
+            name="logistics_support_reason"
+            id="logistics_support_reason"
+            required={logisticsSupports['Others']}
+            />
+        </div>
       </div>
 
       <p className="font-semibold pt-4">
@@ -225,7 +269,7 @@ export default function DLTForm(props:DLTFormProps) {
       <div className="grid">
         {official_coverage.map((oc) => (
           <label key={"oc" + oc} className="px-4" htmlFor={oc}>
-            <input type="checkbox" name="logistics_supports" value={oc} id={oc} onChange={handleOfficialCoverageCheckbox} />
+            <input type="checkbox" name="official_coverage" value={oc} id={oc} onChange={handleOfficialCoverageCheckbox} />
             {oc}
           </label>
         ))}
@@ -237,7 +281,7 @@ export default function DLTForm(props:DLTFormProps) {
       <div className="grid">
         {refreshment_supports.map((rs) => (
           <label key={"rs" + rs} className="px-4" htmlFor={rs}>
-            <input type="checkbox" name="logistics_supports" value={rs} id={rs} onChange={handleOfficialCoverageCheckbox} />
+            <input type="checkbox" name="refreshment_supports" value={rs} id={rs} onChange={handleRefreshmentSupportsCheckbox} />
             {rs}
           </label>
         ))}
@@ -245,7 +289,7 @@ export default function DLTForm(props:DLTFormProps) {
 
       <div className="pt-8">
         <label htmlFor="participants">
-          <input type="checkbox" name="participants" id="participants" />
+          <input type="checkbox" name="participants" id="participants" required/>
           Number of participants (Faculty Member/Head of Office) (maximum 20):
             <input type="number" min={1} max={20} name="participants_count" id="participants_count" className="border-b border-b-zinc-400 outline-none p-1" required />
         </label>
