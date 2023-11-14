@@ -17,6 +17,7 @@ const user_1 = __importDefault(require("./routes/user"));
 const conference_1 = __importDefault(require("./routes/conference"));
 const requests_1 = __importDefault(require("./routes/requests"));
 const admin_1 = __importDefault(require("./routes/admin"));
+const dlt_1 = __importDefault(require("./routes/dlt"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 8000;
@@ -47,6 +48,7 @@ app.use("/v1/auth", auth_1.default);
 app.use("/v1/appointment", appointment_1.default);
 app.use("/v1/conference", conference_1.default);
 app.use("/v1/user", user_1.default);
+app.use("/v1/dlt", dlt_1.default);
 app.use("/v1/requests", requests_1.default);
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

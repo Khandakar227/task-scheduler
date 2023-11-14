@@ -1,37 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-
-const tech_supports = [
-  "Display",
-  "Smart Board",
-  "Projector",
-  "Writing Board",
-  "Microphone (Wireiess/Handhold)",
-  "Laptop",
-  "WiFi",
-  "Technical Person",
-  "Zoom Support (inform at least 5 days earlier for BdREN technical support)",
-];
-
-const logistics_supports = [
-  'Font Desk', 'Table Cloth', 'Additional Chairs', 'Flower with vase', 'Others'
-];
-
-const refreshment_supports = [
-  'Cafeteria Arrangement [Food and Services are arranged by particular Department/Office].',
-  'Own Arrangement by Particular Deparlment/Office (Food and Services are arranged by particular Department/Oflice).'
-];
-
-const official_coverage = [
-  'Photography', 'Video Recording'
-];
-
-const designation_posts = [
-  "Faculty",
-  "Department",
-  "Office",
-  "Centre",
-  "Institute"
-]
+import { designation_posts, logistics_supports, official_coverage, refreshment_supports, tech_supports } from "../libs";
 
 type DLTFormProps = {
   techSupports?: string [];
@@ -224,6 +192,7 @@ export default function DLTForm(props:DLTFormProps) {
             type="number"
             name="duration"
             id="duration"
+            min={1}
             className="border border-zinc-400 outline-none  my-2"
           />
         </p>
@@ -276,7 +245,7 @@ export default function DLTForm(props:DLTFormProps) {
       </div>
 
       <p className="font-semibold pt-4">
-        d) Refreshment Support at Executive Lounge at the Library (if requiredJ:
+        d) Refreshment Support at Executive Lounge at the Library,if required:
       </p>
       <div className="grid">
         {refreshment_supports.map((rs) => (

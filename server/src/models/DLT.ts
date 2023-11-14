@@ -13,6 +13,7 @@ const schema =  new Schema({
     duration: { type: Number, required: true },
     tech_supports: [{ type: String }],
     logistics_supports: [{ type: String }],
+    logistics_support_reason: { type: String },
     official_coverage: [{ type: String }],
     refreshment_supports: [{ type: String }],
     meeting_place: { type: String, required: true, default: "DLT Room" },
@@ -20,5 +21,5 @@ const schema =  new Schema({
     created_at: { type: Date, default: Date.now },
 });
 
-const DLTModel = model("Name", schema);
+const DLTModel = model("DLT", schema);
 export default DLTModel;

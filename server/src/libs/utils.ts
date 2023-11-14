@@ -13,3 +13,7 @@ export const DDMMYYYY = (date:string | Date) => {
     const day = String(d.getDate()).padStart(2, '0');
     return `${day}-${m}-${y}`;
 }
+
+export const timeToDate = (date: string, time: string) => {
+  return new Date(`${date}T${time}`);
+}

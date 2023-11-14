@@ -12,6 +12,7 @@ import userRoutes from "./routes/user";
 import conferenceRoutes from "./routes/conference";
 import requestsRoutes from "./routes/requests";
 import adminRoutes from "./routes/admin";
+import dltRoutes from "./routes/dlt";
 
 dotenv.config();
 
@@ -50,12 +51,15 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
 app.use("/v1/admin", adminRoutes);
 app.use("/v1/auth", authRoutes);
 app.use("/v1/appointment", appointmentRoutes);
 app.use("/v1/conference", conferenceRoutes);
 app.use("/v1/user", userRoutes);
+app.use("/v1/dlt", dltRoutes);
 app.use("/v1/requests", requestsRoutes);
+
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

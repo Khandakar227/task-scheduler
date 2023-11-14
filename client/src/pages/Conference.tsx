@@ -1,7 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import Header from "../components/Header";
-import { getDay, setTimeFormat } from "../libs";
-import { CONFERENCE_URL } from "../assets/config";
+import { conferenceBookingHandler, dltBookingHandler, getDay, setTimeFormat } from "../libs";
 import { toast } from "react-toastify";
 import { openModal } from "../components/Modal/modal";
 import Modal from "../components/Modal/Index";
@@ -40,26 +39,8 @@ export default function Conference() {
 
     function TimeAndDateToString() {
         if (date.date && date.startTime && date.endTime)
-            return `${getDay(date?.date)} (${setTimeFormat(date?.startTime, '12h')} - ${setTimeFormat(date?.endTime, '12h')})`;
+            return `${getDay(date?.date)} (${setTimeFormat(date?.startTime, '12')} - ${setTimeFormat(date?.endTime, '12')})`;
         else return "";
-    }
-
-    async function conferenceBookingHandler(body: unknown, e: FormEvent) {
-        const res = await fetch(`${CONFERENCE_URL}/create`, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: "POST",
-            credentials: "include",
-            body: JSON.stringify(body),
-        })
-        const response = await res.json()
-        if (response.error) toast.error(`Unexpected error occured: ${response.message}`);
-        else {
-            toast.success("A conference has been booked and awaited for review");
-            (e.target as HTMLFormElement).reset();
-        }
     }
 
     function handleSubmit(e: FormEvent) {
@@ -85,13 +66,14 @@ export default function Conference() {
                     }
                 } else {
                     // DLT form handler
-                    console.log({
+                    const body = {
                         ...data,
                         tech_supports: techSupports,
                         refreshment_supports: refreshmentSupports,
                         official_coverage: officialCoverage,
                         logistics_supports: logisticsSupports
-                    })
+                    };
+                    await dltBookingHandler(body, e);
                 }
             } catch (error) {
                 const err = error as Error;

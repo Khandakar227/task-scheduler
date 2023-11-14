@@ -95,6 +95,13 @@ function Sidebar({sidebarVisible}:{sidebarVisible:boolean}) {
           </li>
 
           <li className='font-bold pt-4'>
+            <Link to="/dlt" className='text-sm flex gap-4 w-full p-2 hover:bg-green-600 hover:text-white transition-all'>
+              <FaCalendarCheck/>
+              <span>DLT bookings</span>
+            </Link>
+          </li>
+
+          <li className='font-bold pt-4'>
             <button onClick={logOut} className='text-sm flex gap-4 w-full p-2 hover:bg-green-600 hover:text-white transition-all'>
               <BiLogOut/>
               <span>Log Out</span>
