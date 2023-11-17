@@ -3,6 +3,7 @@ import AppointmentModel from "../models/Appointment";
 import { User } from "../libs/cookies";
 import ConferenceModel from "../models/Conference";
 import { DDMMYYYY, YYYYMMDD } from "../libs/utils";
+import DLTModel from "../models/DLT";
 
 export const getAllRequests = async (req: Request, res: Response) => {
     try {
@@ -10,8 +11,9 @@ export const getAllRequests = async (req: Request, res: Response) => {
 
         const appointments = await AppointmentModel.find({ email: user.email });
         const conferences = await ConferenceModel.find({ email: user.email });
+        const dltRooms = await DLTModel.find({ email: user.email });
 
-        res.status(200).json({error: false, data: [...appointments, ...conferences]});
+        res.status(200).json({error: false, data: [...appointments, ...conferences, ...dltRooms]});
         
     } catch (error) {
         const err = error as Error;
@@ -58,13 +60,15 @@ export const getAllRequestsForAdmin = async (req: Request, res: Response) => {
         } else if (type == 'conference') {
             const conferences = await ConferenceModel.find(query);
             res.status(200).json({error: false, data: [...conferences], date});
+        } else if (type == 'dlt') {
+            const dltRooms = await DLTModel.find(query);
+            res.status(200).json({error: false, data: [...dltRooms], date});
         } else {
             const appointments = await AppointmentModel.find(query);
             const conferences = await ConferenceModel.find(query);
-            res.status(200).json({error: false, data: [...appointments, ...conferences], date});
+            const dltRooms = await DLTModel.find(query);
+            res.status(200).json({error: false, data: [...appointments, ...conferences, ...dltRooms], date});
         }
-
- 
     } catch (error) {
         const err = error as Error;
         console.log(err.message);

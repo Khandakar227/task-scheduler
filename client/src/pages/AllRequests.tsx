@@ -4,6 +4,8 @@ import RequestCard from "../components/RequestCard"
 import { REQUESTS_URL } from "../assets/config";
 import Loader from "../components/Loader";
 import { toast } from "react-toastify";
+import DLTCard from "../components/DLTCard";
+import { DLTFormData } from "../libs";
 
 type RequestProp = {
 name: string,
@@ -22,7 +24,7 @@ _id:string
 
 function AllRequests() {
     const [loading, setLoading] = useState(true);
-    const [requests, setRequests] = useState<RequestProp[]>([]);
+    const [requests, setRequests] = useState<(RequestProp | DLTFormData)[]>([]);
     const [error, setError] = useState("");
 
     useEffect(() => {
@@ -63,19 +65,27 @@ function AllRequests() {
                 :
                     <div className="p-4 md:p-8 flex-auto min-h-screen bg-slate-100">
                         {
-                            requests.map(req => 
-                            <RequestCard
-                                date={req.date}
-                                to={req.appointment_with}
-                                name={req.name}
-                                type={req.appointment_with ? "appointment" : "booking"}
-                                startTime={req.startTime}
-                                endTime={req.endTime}
-                                meetingPlace={req.meeting_place}
-                                reasonOfMeeting={req.reason_of_meeting}
-                                status={req.status}
-                                key={req._id}
-                            />)
+                            requests.map(req =>
+                                
+                                    req.meeting_place == 'DLT Room' ?
+                                    <DLTCard
+                                    key={req._id}
+                                    props={req as DLTFormData}
+                                    />
+                                    :
+                                    <RequestCard
+                                        date={(req as RequestProp).date}
+                                        to={(req as RequestProp).appointment_with}
+                                        name={(req as RequestProp).name}
+                                        type={(req as RequestProp).appointment_with ? "appointment" : "booking"}
+                                        startTime={(req as RequestProp).startTime}
+                                        endTime={(req as RequestProp).endTime}
+                                        meetingPlace={(req as RequestProp).meeting_place}
+                                        reasonOfMeeting={(req as RequestProp).reason_of_meeting}
+                                        status={(req as RequestProp).status}
+                                        key={(req as RequestProp)._id}
+                                    />
+                            )
                         }
                     </div>
                 }
