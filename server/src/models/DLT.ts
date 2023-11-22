@@ -19,7 +19,7 @@ const schema =  new Schema({
     meeting_place: { type: String, required: true, default: "DLT Room" },
     participants_count: {type: Number, required: true},
     status: { type: String, default: 'Pending' },
-    created_at: { type: Date, default: Date.now },
+    createdAt: { type: Date, default: Date.now },
 });
 
 const DLTModel = model("DLT", schema);

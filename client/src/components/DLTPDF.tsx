@@ -58,7 +58,7 @@ export default function DLTPDF(props: DLTFormData) {
                             <View style={{ ...styles.line, marginLeft: 30 }}></View>
                         </View>
                         <View style={{ minWidth: 100 }}>
-                            <Text>Date: {getDMYFormat(props.date_of_booking)}</Text>
+                            <Text>Date: {getDMYFormat(props.created_at)}</Text>
                             <View style={{ ...styles.line, marginLeft: 25 }}></View>
                         </View>
                     </View>
@@ -261,9 +261,11 @@ export default function DLTPDF(props: DLTFormData) {
                     </View>
 
                     <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 2, marginTop: 8 }}>
-                        <Text style={{ marginTop: 3, padding: 2, border: '1px solid black', width: 9, height: 9 }}></Text>
+                        <Text
+                            style={{ marginTop: 3, padding: 2, border: '1px solid black', width: 9, height: 9, backgroundColor: 'black' }}
+                        ></Text>
                         <View style={{ width: '100%' }}>
-                            <Text>Number of participants (Faculty Member/Head of Office) (maximum 20):</Text>
+                            <Text>Number of participants (Faculty Member/Head of Office) (maximum 20): {props.participants_count}</Text>
                             <View style={{ ...styles.line, marginLeft: 345, maxWidth: 80 }}></View>
                         </View>
                     </View>
@@ -306,7 +308,7 @@ export default function DLTPDF(props: DLTFormData) {
                     <View style={{ flexDirection: 'row', marginTop: 8, marginBottom: 8 }}>
                         <Text>Prof. Dr. Khondokar Habibul Kabjr, Library in Charge:</Text>
                         <View style={{ marginLeft: 12 }}>
-                            <Text>Signatue: </Text>
+                            <Text>Signature: </Text>
                             <View style={{ ...styles.line, marginLeft: 45, minWidth: 70 }}></View>
                         </View>
                         <View>

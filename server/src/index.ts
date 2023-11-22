@@ -13,6 +13,7 @@ import conferenceRoutes from "./routes/conference";
 import requestsRoutes from "./routes/requests";
 import adminRoutes from "./routes/admin";
 import dltRoutes from "./routes/dlt";
+import mailRoutes from "./routes/mail";
 
 dotenv.config();
 
@@ -52,13 +53,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
+app.get("/", (req, res) => res.send("OK"));
+
 app.use("/v1/admin", adminRoutes);
 app.use("/v1/auth", authRoutes);
 app.use("/v1/appointment", appointmentRoutes);
 app.use("/v1/conference", conferenceRoutes);
-app.use("/v1/user", userRoutes);
 app.use("/v1/dlt", dltRoutes);
+app.use("/v1/mail", mailRoutes);
 app.use("/v1/requests", requestsRoutes);
+app.use("/v1/user", userRoutes);
 
 
 app.listen(port, () => {

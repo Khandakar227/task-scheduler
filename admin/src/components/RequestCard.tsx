@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getDMYFormat, getDay, setTimeFormat } from "../libs";
+import { getDMYFormat, getDay, notifyUser, setTimeFormat } from "../libs";
 import RequestModal from "./RequestModal";
 import { AiOutlineClose } from "react-icons/ai";
 import { RequestProp } from "../libs/type";
@@ -37,6 +37,9 @@ export default function RequestCard(props:Props) {
         if(data.error) {
             toast.error(data.message);
         } else {
+            await notifyUser(props.email, props.name, props.date, props.startTime, props.endTime,
+                props.type == 'appointment' ? 'Appointment' : 'Conference'
+                )
             toast.success(data.message);
             setStatus(_status);
         }
