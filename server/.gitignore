@@ -1,3 +1,4 @@
 node_modules/
 .env
 *.apps.googleusercontent.com.json
+dist/
