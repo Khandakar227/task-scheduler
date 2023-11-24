@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
 import DLTForm from "../components/DLTForm";
 
-const rooms = ['VC Office', 'Board Room', 'DLT Room'];
+const rooms = ['Board Room', 'Committee Room', 'DLT Room', 'VC Room' ];
 
 export default function Conference() {
     const [requestLoading, setRequestLoading] = useState(false);

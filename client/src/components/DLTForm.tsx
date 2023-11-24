@@ -155,7 +155,7 @@ export default function DLTForm(props:DLTFormProps) {
           id="details"
           className="w-full outline-none border-zinc-400 border p-2"
           required
-          minLength={315}
+          maxLength={315}
         ></textarea>
       </div>
       <div className="py-2 gap-2">
