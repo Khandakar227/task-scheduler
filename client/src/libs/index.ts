@@ -52,9 +52,9 @@ export function getDMYFormat(date: string) {
     return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/')
 }
 
-export function extractTime(date: string) {
+export function extractTime(date: string, format:'24'|'12'='12') {
     const d = new Date(date);
-    return setTimeFormat(`${d.getHours()}:${d.getMinutes()}`, '12');
+    return setTimeFormat(`${d.getHours()}:${d.getMinutes()}`, format);
 }
 
 export async function conferenceBookingHandler(body: unknown, e: FormEvent) {

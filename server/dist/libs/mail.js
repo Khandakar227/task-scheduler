@@ -12,6 +12,7 @@ const config = {
     email: '"Admin" <foo@example.com>',
     logo_url: ''
 };
+const PHONE_NO = "+8802996691250";
 exports.transporter = (0, nodemailer_1.createTransport)({
     service: 'gmail',
     auth: {
@@ -26,7 +27,7 @@ const emailBody = (username, date, start_time, end_time, type) => `
 <p><strong>Ending Time: ${(0, utils_1.setTimeFormat)(end_time, '12')} </strong></p>
 <p>If the new appointment time is not suitable for you, please let us know as soon as possible so that we can explore alternative options.</p>
     <p>If the updated schedule works for you, there is no further action required.</p>
-    <p>Should you have any questions or concerns, please feel free to reach out to us at <b>0183423552</b>.</p>
+    <p>Should you have any questions or concerns, please feel free to reach out to us at <b>${PHONE_NO}</b>.</p>
 <p>Best Regards,</p>
   `;
 const notifyUser = (email, username, date, start_time, end_time, type) => {

@@ -4,6 +4,7 @@ import RequestCard from "../components/RequestCard"
 import { CONFERENCE_URL } from "../assets/config";
 import Loader from "../components/Loader";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 type RequestProp = {
 name: string,
@@ -56,6 +57,10 @@ function Conferences() {
                     {loading ?
                     (<Loader/>)
                 :
+                <div className="flex-auto min-h-screen bg-slate-100">
+                    <p className="text-xs md:text-sm text-center max-w-6xl mx-auto py-4">
+                    If you wish to modify or change the booking details, please do not hesitate to contact us at <b>pstovc@iut-dhaka.edu</b>.  For new room booking, click on <Link className="font-bold underline" to="/conference" >New Room Booking</Link>.
+                    </p>
                     <div className="p-4 md:p-8 flex-auto min-h-screen bg-slate-100">
                         {
                             requests.map(req => 
@@ -73,6 +78,7 @@ function Conferences() {
                             />)
                         }
                     </div>
+                </div>
                 }
                 </div>
             </Header>

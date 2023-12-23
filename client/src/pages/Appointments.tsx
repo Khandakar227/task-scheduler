@@ -4,6 +4,7 @@ import RequestCard from "../components/RequestCard"
 import { APPOINTMENT_URL } from "../assets/config";
 import Loader from "../components/Loader";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 type RequestProp = {
 name: string,
@@ -56,7 +57,11 @@ function Appointments() {
                     {loading ?
                     (<Loader/>)
                 :
-                    <div className="p-4 md:p-8 flex-auto min-h-screen bg-slate-100">
+                <div className="flex-auto min-h-screen bg-slate-100">
+                    <p className="text-xs md:text-sm text-center max-w-6xl mx-auto py-4">
+                    If you wish to modify or change the appointment details, please do not hesitate to contact us at <b>pstovc@iut-dhaka.edu</b>.  For new appointments, click on <Link className="font-bold underline" to="/appointment" >New Appointment</Link>.
+                    </p>
+                    <div className="p-4 md:p-8">
                         {
                             requests.map(req => 
                             <RequestCard
@@ -70,8 +75,9 @@ function Appointments() {
                                 reasonOfMeeting={req.reason_of_meeting}
                                 status={req.status}
                                 key={req._id}
-                            />)
-                        }
+                                />)
+                            }
+                    </div>
                     </div>
                 }
                 </div>

@@ -28,13 +28,12 @@ const styles = StyleSheet.create({
     }
 });
 
-function getFlex (condition: boolean) {
-    console.log(condition)
-    if (condition) return ({flex: 'auto'})
-
-}
 
 export default function DLTPDF(props: DLTFormData) {
+    
+    function getFlex (condition: boolean) {
+        if (condition) return ({flex: 'auto'})
+    }
 
     return (
         <Document>
