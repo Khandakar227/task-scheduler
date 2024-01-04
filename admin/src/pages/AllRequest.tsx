@@ -7,6 +7,7 @@ import { RequestProp } from "../libs/type";
 import GeneratePDFButton from "../components/GeneratePDFButton";
 import DLTCard from "../components/DLTCard";
 import { DLTFormData } from "../libs";
+import SearchBar from "../components/SearchBar";
 
     
 export default function AllRequest() {
@@ -52,10 +53,13 @@ export default function AllRequest() {
                     {loading ?
                     (<p className="p-4 text-center">Loading...</p>)
                 :
-                    <div className="flex-auto min-h-screen bg-slate-100 pb-16">
+                    <div className="flex-auto min-h-screen bg-slate-100 pb-16 px-3">
                        <div className="text-end py-4 px-2">
-                           {/* <Link to={"/pdf"} target="_blank" className="rounded px-4 py-2 bg-red-600 text-white">Generate PDF</Link> */}
+                        <div className="flex gap-4 justify-between items-center">
+                            <SearchBar/>
                             <GeneratePDFButton type="all"/>
+                           {/* <Link to={"/pdf"} target="_blank" className="rounded px-4 py-2 bg-red-600 text-white">Generate PDF</Link> */}
+                        </div>
                        </div>
                         {
                             requests.map(req => 

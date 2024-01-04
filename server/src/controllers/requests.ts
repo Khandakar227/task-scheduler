@@ -80,3 +80,25 @@ export const getAllRequestsForAdmin = async (req: Request, res: Response) => {
         });
     }
 }
+// Admin only
+export const searchRequestsForAdmin = async (req: Request, res: Response) => {
+    try {
+        const { q } = req.query;
+        if(!q || !(q as string).trim()) return res.status(200).json({error: false, data: []});
+        
+        const appointments = await AppointmentModel.find({$text: {$search: (q as string).trim()}});
+        const conferences = await ConferenceModel.find({$text: {$search:  (q as string).trim()}});
+        const dltRooms = await DLTModel.find({$text: {$search:  (q as string).trim()}});
+
+        res.status(200).json({error: false, data: [...appointments, ...conferences, ...dltRooms]});
+    } catch (error) {
+        const err = error as Error;
+        console.log(err.message);
+        res
+        .status(500)
+        .json({
+            error: true,
+            message: `Unexpected error occured on the server. ${err.message}`,
+        });
+    }
+}

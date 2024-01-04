@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDLTBookings = exports.bookDLT = void 0;
+exports.searchDLTForm = exports.updateDLT = exports.getDLTBookings = exports.bookDLT = void 0;
 const DLT_1 = __importDefault(require("../models/DLT"));
 const utils_1 = require("../libs/utils");
 const bookDLT = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -71,3 +71,47 @@ const getDLTBookings = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.getDLTBookings = getDLTBookings;
+const updateDLT = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const id = req.params.id;
+        const body = req.body;
+        let updateFields = {};
+        yield Promise.resolve(Object.keys(body).forEach(k => {
+            if (body[k])
+                updateFields[k] = body[k];
+        }));
+        const data = yield DLT_1.default.findByIdAndUpdate(id, updateFields, { new: true });
+        res.status(200).json({ error: false, data });
+    }
+    catch (error) {
+        const err = error;
+        console.log(err.message);
+        res
+            .status(500)
+            .json({
+            error: true,
+            message: `Unexpected error occured on the server. ${err.message}`,
+        });
+    }
+});
+exports.updateDLT = updateDLT;
+const searchDLTForm = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { q } = req.query;
+        if (!q || !q.trim())
+            return res.status(200).json({ error: false, data: [] });
+        const dltRooms = yield DLT_1.default.find({ $text: { $search: q.trim() } });
+        res.status(200).json({ error: false, data: dltRooms });
+    }
+    catch (error) {
+        const err = error;
+        console.log(err.message);
+        res
+            .status(500)
+            .json({
+            error: true,
+            message: `Unexpected error occured on the server. ${err.message}`,
+        });
+    }
+});
+exports.searchDLTForm = searchDLTForm;

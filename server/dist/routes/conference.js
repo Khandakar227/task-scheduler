@@ -16,4 +16,5 @@ conferenceRoutes.get("/admin", cookie_1.verifyAdminCookie, conference_1.getAllCo
 conferenceRoutes.put("/admin/update-status/:id", cookie_1.verifyAdminCookie, conference_1.changeStatus);
 conferenceRoutes.put("/:id", cookie_1.verifyAdminCookie, conference_1.updateConference);
 conferenceRoutes.delete("/:id", cookie_1.verifyAdminCookie, conference_1.deleteConference);
+conferenceRoutes.delete("/admin/search", cookie_1.verifyAdminCookie, conference_1.searchBookedRoomsForAdmin);
 exports.default = conferenceRoutes;

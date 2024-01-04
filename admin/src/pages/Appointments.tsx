@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { APPOINMENTS_API_URL } from "../assets/config";
 import RequestCard from "../components/RequestCard";
 import { RequestProp } from "../libs/type";
+import SearchBar from "../components/SearchBar";
 
 
 export default function Appointments() {
@@ -49,6 +50,7 @@ export default function Appointments() {
                     (<p className="p-4 text-center">Loading...</p>)
                 :
                     <div className="p-4 md:p-8 flex-auto min-h-screen bg-slate-100">
+                            <SearchBar/>
                         {
                             requests.map(req => 
                             <RequestCard

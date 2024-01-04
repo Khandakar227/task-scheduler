@@ -9,4 +9,5 @@ const cookie_1 = require("../middlewares/cookie");
 const requestsRoutes = express_1.default.Router();
 requestsRoutes.get("/", cookie_1.verifyCookie, requests_1.getAllRequests);
 requestsRoutes.get("/admin", cookie_1.verifyAdminCookie, requests_1.getAllRequestsForAdmin);
+requestsRoutes.get("/admin/search", cookie_1.verifyAdminCookie, requests_1.searchRequestsForAdmin);
 exports.default = requestsRoutes;

@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import { toast } from "react-toastify";
 import { CONFERENCES_API_URL } from "../assets/config";
 import RequestCard from "../components/RequestCard";
+import SearchBar from "../components/SearchBar";
 
 type RequestProp = {
     name: string,
@@ -63,6 +64,7 @@ export default function Conferences() {
                     (<p className="p-4 text-center">Loading...</p>)
                 :
                     <div className="p-4 md:p-8 flex-auto min-h-screen bg-slate-100">
+                            <SearchBar/>
                         {
                             requests.map(req => 
                             <RequestCard

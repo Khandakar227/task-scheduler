@@ -16,4 +16,5 @@ appointmentRoutes.get("/admin", cookie_1.verifyAdminCookie, appointment_1.getAll
 appointmentRoutes.put("/admin/:id", cookie_1.verifyAdminCookie, appointment_1.updateAppointment);
 appointmentRoutes.put("/admin/update-status/:id", cookie_1.verifyAdminCookie, appointment_1.changeStatus);
 appointmentRoutes.delete("/:id", cookie_1.verifyAdminCookie, appointment_1.deleteAppointment);
+appointmentRoutes.delete("/admin/search", cookie_1.verifyAdminCookie, appointment_1.searchAppointmentsForAdmin);
 exports.default = appointmentRoutes;

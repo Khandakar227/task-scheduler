@@ -1,11 +1,11 @@
 import express from "express";
-import { getAllRequests, getAllRequestsForAdmin } from "../controllers/requests";
+import { getAllRequests, getAllRequestsForAdmin, searchRequestsForAdmin } from "../controllers/requests";
 import { verifyAdminCookie, verifyCookie } from "../middlewares/cookie";
-import validationErrorHandler from "../middlewares/validityHandler";
 
 const requestsRoutes = express.Router();
 
 requestsRoutes.get("/", verifyCookie, getAllRequests);
 requestsRoutes.get("/admin", verifyAdminCookie, getAllRequestsForAdmin);
+requestsRoutes.get("/admin/search", verifyAdminCookie, searchRequestsForAdmin);
 
 export default requestsRoutes;

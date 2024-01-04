@@ -56,7 +56,7 @@ export default function DLTUpdateForm({props}:{props:DLTFormData}) {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement)
     const data = Object.fromEntries(formData);
-
+    // to get the array from objects
     const ls:string[] = [], rs:string[] = [], ts:string[] = [], oc:string[] = [];
     
     Object.keys(logisticsSupports).forEach((key) => {
@@ -222,7 +222,14 @@ export default function DLTUpdateForm({props}:{props:DLTFormData}) {
         <div className="grid">
             {logistics_supports.map((ls) => (
             <label key={"ls" + ls} className="px-4" htmlFor={ls}>
-                <input type="checkbox" name="logistics_supports" value={ls} id={ls} onChange={handleLogisticsSupportCheckbox} />
+                <input
+                type="checkbox"
+                name="logistics_supports"
+                value={ls}
+                id={ls}
+                onChange={handleLogisticsSupportCheckbox}
+                defaultChecked={props.logistics_supports.includes(ls)}
+                />
                 {ls}
             </label>
             ))}
@@ -234,7 +241,8 @@ export default function DLTUpdateForm({props}:{props:DLTFormData}) {
                 name="logistics_support_reason"
                 id="logistics_support_reason"
                 required={logisticsSupports['Others']}
-                />
+                defaultValue={props.logistics_support_reason}
+            />
             </div>
         </div>
 
@@ -244,7 +252,14 @@ export default function DLTUpdateForm({props}:{props:DLTFormData}) {
         <div className="grid">
             {official_coverage.map((oc) => (
             <label key={"oc" + oc} className="px-4" htmlFor={oc}>
-                <input type="checkbox" name="official_coverage" value={oc} id={oc} onChange={handleOfficialCoverageCheckbox} />
+                <input
+                type="checkbox"
+                name="official_coverage"
+                value={oc}
+                id={oc}
+                onChange={handleOfficialCoverageCheckbox}
+                defaultChecked={props.official_coverage.includes(oc)}
+                />
                 {oc}
             </label>
             ))}
@@ -256,7 +271,14 @@ export default function DLTUpdateForm({props}:{props:DLTFormData}) {
         <div className="grid">
             {refreshment_supports.map((rs) => (
             <label key={"rs" + rs} className="px-4" htmlFor={rs}>
-                <input type="checkbox" name="refreshment_supports" value={rs} id={rs} onChange={handleRefreshmentSupportsCheckbox} />
+                <input
+                type="checkbox"
+                name="refreshment_supports"
+                value={rs}
+                id={rs}
+                onChange={handleRefreshmentSupportsCheckbox}
+                defaultChecked={props.refreshment_supports.includes(rs)}
+                />
                 {rs}
             </label>
             ))}
@@ -264,7 +286,7 @@ export default function DLTUpdateForm({props}:{props:DLTFormData}) {
 
         <div className="pt-8">
             <label htmlFor="participants">
-            <input type="checkbox" name="participants" id="participants" required/>
+            <input type="checkbox" name="participants" id="participants" required defaultChecked={true}/>
             Number of participants (Faculty Member/Head of Office) (maximum 20):
                 <input type="number" min={1} max={20} name="participants_count" id="participants_count" className="border-b border-b-zinc-400 outline-none p-1" required />
             </label>

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.changeStatus = exports.deleteConference = exports.updateConference = exports.getAllConferences = exports.getConferences = exports.verifyConferenceHandler = exports.bookConferenceHandler = void 0;
+exports.searchBookedRoomsForAdmin = exports.changeStatus = exports.deleteConference = exports.updateConference = exports.getAllConferences = exports.getConferences = exports.verifyConferenceHandler = exports.bookConferenceHandler = void 0;
 const Conference_1 = __importDefault(require("../models/Conference"));
 const bookConferenceHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -166,3 +166,24 @@ const changeStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.changeStatus = changeStatus;
+// Admin only
+const searchBookedRoomsForAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { q } = req.query;
+        if (!q || !q.trim())
+            return res.status(200).json({ error: false, data: [] });
+        const conferences = yield Conference_1.default.find({ $text: { $search: q.trim() } });
+        res.status(200).json({ error: false, data: conferences });
+    }
+    catch (error) {
+        const err = error;
+        console.log(err.message);
+        res
+            .status(500)
+            .json({
+            error: true,
+            message: `Unexpected error occured on the server. ${err.message}`,
+        });
+    }
+});
+exports.searchBookedRoomsForAdmin = searchBookedRoomsForAdmin;

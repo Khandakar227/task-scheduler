@@ -9,7 +9,7 @@ export default function GeneratePDFButton({type}:{type:'appointment'| 'conferenc
 
   return (
     <div className="group relative">
-        <button className="p-2 bg-red-500 text-white">Generate PDF</button>
+        <button className="p-2 bg-red-500 text-white text-xs sm:text-base">Generate PDF</button>
          <div className="group-hover:grid hidden absolute bg-red-600 text-white right-0">
          {
             pdfLinks.map(pdflink =>
