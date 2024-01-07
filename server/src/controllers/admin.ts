@@ -62,7 +62,7 @@ export const signInAsAdmin = async (req: Request, res: Response) => {
           );
         
           if (!isPasswordMatched)
-          return res.status(401).json({ message: "Incorrect email or password" });
+          return res.status(401).json({ error: true, message: "Incorrect email or password" });
 
           const token = jwt.sign({
             name: admin.name,

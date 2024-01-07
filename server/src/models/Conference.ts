@@ -14,4 +14,11 @@ const schema =  new Schema({
 });
 
 const ConferenceModel = model("Conference", schema);
+ConferenceModel.collection.createIndex({
+    email: 'text',
+    name: 'text',
+    contact: 'text',
+    reason_of_meeting: 'text',
+    meeting_place: 'text',
+})
 export default ConferenceModel;

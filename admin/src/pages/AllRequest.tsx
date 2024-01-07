@@ -56,7 +56,7 @@ export default function AllRequest() {
                     <div className="flex-auto min-h-screen bg-slate-100 pb-16 px-3">
                        <div className="text-end py-4 px-2">
                         <div className="flex gap-4 justify-between items-center">
-                            <SearchBar/>
+                            <SearchBar />
                             <GeneratePDFButton type="all"/>
                            {/* <Link to={"/pdf"} target="_blank" className="rounded px-4 py-2 bg-red-600 text-white">Generate PDF</Link> */}
                         </div>

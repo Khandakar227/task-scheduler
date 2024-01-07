@@ -64,7 +64,7 @@ export default function Conferences() {
                     (<p className="p-4 text-center">Loading...</p>)
                 :
                     <div className="p-4 md:p-8 flex-auto min-h-screen bg-slate-100">
-                            <SearchBar/>
+                            <SearchBar type={'conference'}/>
                         {
                             requests.map(req => 
                             <RequestCard

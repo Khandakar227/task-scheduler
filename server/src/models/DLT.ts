@@ -23,4 +23,14 @@ const schema =  new Schema({
 });
 
 const DLTModel = model("DLT", schema);
+
+DLTModel.collection.createIndex({
+    name: 'text',
+    email: 'text',
+    designation: 'text',
+    designation_post: 'text',
+    mobile_no: 'text',
+    details: 'text',
+})
+
 export default DLTModel;

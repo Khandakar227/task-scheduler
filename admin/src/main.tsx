@@ -14,6 +14,7 @@ import AuthGuard from './components/AuthGuard';
 import Appointments from './pages/Appointments';
 import Conferences from './pages/Conferences';
 import PDFPage from './pages/PDFPage';
+import Search from './pages/Search';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
   {
     path: "/pdf",
     element: <AuthGuard for="admin"><PDFPage /></AuthGuard>
+  },
+  {
+    path: "/search",
+    element: <AuthGuard for="admin"><Search /></AuthGuard>
   },
   {
     path: "*",

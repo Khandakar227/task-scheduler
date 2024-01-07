@@ -15,4 +15,12 @@ const schema = new mongoose_1.Schema({
     createdAt: { type: Date, default: Date.now, required: true }
 });
 const AppointmentModel = (0, mongoose_1.model)("Appointment", schema);
+AppointmentModel.collection.createIndex({
+    email: 'text',
+    name: 'text',
+    contact: 'text',
+    appointment_with: 'text',
+    reason_of_meeting: 'text',
+    meeting_place: 'text',
+});
 exports.default = AppointmentModel;

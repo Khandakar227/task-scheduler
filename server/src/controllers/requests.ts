@@ -85,7 +85,6 @@ export const searchRequestsForAdmin = async (req: Request, res: Response) => {
     try {
         const { q } = req.query;
         if(!q || !(q as string).trim()) return res.status(200).json({error: false, data: []});
-        
         const appointments = await AppointmentModel.find({$text: {$search: (q as string).trim()}});
         const conferences = await ConferenceModel.find({$text: {$search:  (q as string).trim()}});
         const dltRooms = await DLTModel.find({$text: {$search:  (q as string).trim()}});

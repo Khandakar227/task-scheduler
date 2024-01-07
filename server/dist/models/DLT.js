@@ -23,4 +23,12 @@ const schema = new mongoose_1.Schema({
     createdAt: { type: Date, default: Date.now },
 });
 const DLTModel = (0, mongoose_1.model)("DLT", schema);
+DLTModel.collection.createIndex({
+    name: 'text',
+    email: 'text',
+    designation: 'text',
+    designation_post: 'text',
+    mobile_no: 'text',
+    details: 'text',
+});
 exports.default = DLTModel;

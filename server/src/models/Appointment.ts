@@ -14,5 +14,16 @@ const schema =  new Schema({
     createdAt: { type: Date, default: Date.now, required: true }
 });
 
+
 const AppointmentModel = model("Appointment", schema);
+
+AppointmentModel.collection.createIndex({
+    email: 'text',
+    name: 'text',
+    contact: 'text',
+    appointment_with: 'text',
+    reason_of_meeting: 'text',
+    meeting_place: 'text',
+})
+
 export default AppointmentModel;

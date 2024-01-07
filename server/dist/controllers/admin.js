@@ -69,7 +69,7 @@ const signInAsAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             return res.status(401).json({ error: true, message: "Invalid username or password" });
         const isPasswordMatched = (0, password_1.checkPasswordMatch)(password, admin.password);
         if (!isPasswordMatched)
-            return res.status(401).json({ message: "Incorrect email or password" });
+            return res.status(401).json({ error: true, message: "Incorrect email or password" });
         const token = jsonwebtoken_1.default.sign({
             name: admin.name,
             email: admin.email,
