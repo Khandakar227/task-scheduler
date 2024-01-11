@@ -29,7 +29,8 @@ const emailBody = (username, date, start_time, end_time, type) => `
     <p>If the updated schedule works for you, there is no further action required.</p>
     <p>Should you have any questions or concerns, please feel free to reach out to us at <b>${PHONE_NO}</b>.</p>
 <p>Best Regards,</p>
-  `;
+<p>IUT Administration Team</p>
+`;
 const notifyUser = (email, username, date, start_time, end_time, type) => {
     const mailOptions = {
         from: config.email,

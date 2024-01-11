@@ -75,7 +75,7 @@ export default function Appointment() {
 
     function TimeAndDateToString() {
         if(date.date && date.startTime && date.endTime)
-        return `${getDay(date?.date)} (${setTimeFormat(date?.startTime, '12h')} - ${setTimeFormat(date?.endTime, '12h')})`;
+        return `${getDay(date?.date)} (${setTimeFormat(date?.startTime, '12')} - ${setTimeFormat(date?.endTime, '12')})`;
         else return "";
     }
 
