@@ -9,7 +9,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const utils_1 = require("./utils");
 dotenv_1.default.config();
 const config = {
-    email: '"Admin" <foo@example.com>',
+    email: process.env.MAIL_SENDER_EMAIL,
     logo_url: ''
 };
 const PHONE_NO = "+8802996691250";

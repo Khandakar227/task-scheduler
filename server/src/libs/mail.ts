@@ -5,7 +5,7 @@ import { DDMMYYYY, setTimeFormat } from './utils';
 dotenv.config();
 
 const config = {
-    email: '"Admin" <foo@example.com>',
+    email: process.env.MAIL_SENDER_EMAIL,
     logo_url: ''
 }
 
@@ -29,6 +29,7 @@ const emailBody =
     <p>If the updated schedule works for you, there is no further action required.</p>
     <p>Should you have any questions or concerns, please feel free to reach out to us at <b>${PHONE_NO}</b>.</p>
 <p>Best Regards,</p>
+<p>IUT Administration Team</p>
   `;
 
 const notifyUser = (email:string, username: string, date:Date, start_time: string, end_time: string, type: 'Appointment'|'Conference') => {
