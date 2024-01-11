@@ -30,7 +30,7 @@ const emailBody =
     <p>Should you have any questions or concerns, please feel free to reach out to us at <b>${PHONE_NO}</b>.</p>
 <p>Best Regards,</p>
 <p>IUT Administration Team</p>
-  `;
+`;
 
 const notifyUser = (email:string, username: string, date:Date, start_time: string, end_time: string, type: 'Appointment'|'Conference') => {
    const  mailOptions = {
