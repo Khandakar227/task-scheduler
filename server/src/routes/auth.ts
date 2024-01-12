@@ -47,7 +47,7 @@ googleAuthRoutes.get("/appointment/google/callback", (req, res) => {
         httpOnly: true,
         maxAge: COOKIE_MAX_AGE,
         // Use only in production
-        domain: 'iut-appointment-and-room-booking.onrender.com',
+        domain: '.onrender.com',
         sameSite: 'none',
         secure: true,
       });
@@ -79,7 +79,7 @@ googleAuthRoutes.get("/conference/google/callback", (req, res) => {
         httpOnly: false,
         maxAge: COOKIE_MAX_AGE,
         // Use only in production
-        domain: 'iut-appointment-and-room-booking.onrender.com',
+        domain: '.onrender.com',
         sameSite: 'none',
         secure: true,
       });
