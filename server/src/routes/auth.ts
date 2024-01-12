@@ -44,9 +44,12 @@ googleAuthRoutes.get("/appointment/google/callback", (req, res) => {
       await addUser(user);
       
       res.cookie(COOKIE_NAME, createCookie('appointment', user), {
-        httpOnly: false,
-        sameSite: 'none', secure: true, // Use only in production
+        httpOnly: true,
         maxAge: COOKIE_MAX_AGE,
+        // Use only in production
+        domain: 'iut-appointment-and-room-booking.onrender.com',
+        sameSite: 'none',
+        secure: true,
       });
       res.redirect(302, `${process.env.CLIENT_URL}/appointment`);
     }
@@ -74,8 +77,11 @@ googleAuthRoutes.get("/conference/google/callback", (req, res) => {
 
       res.cookie(COOKIE_NAME, createCookie('appointment', user), {
         httpOnly: false,
-        sameSite: 'none', secure: true, // Use only in production
         maxAge: COOKIE_MAX_AGE,
+        // Use only in production
+        domain: 'iut-appointment-and-room-booking.onrender.com',
+        sameSite: 'none',
+        secure: true,
       });
       res.redirect(`${process.env.CLIENT_URL}/conference`);
     }
