@@ -44,8 +44,8 @@ googleAuthRoutes.get("/appointment/google/callback", (req, res) => {
       await addUser(user);
       
       res.cookie(COOKIE_NAME, createCookie('appointment', user), {
-        httpOnly: true,
-        sameSite: 'none', secure: false, // Use only in production
+        httpOnly: false,
+        sameSite: 'none', secure: true, // Use only in production
         maxAge: COOKIE_MAX_AGE,
       });
       res.redirect(302, `${process.env.CLIENT_URL}/appointment`);
@@ -73,8 +73,8 @@ googleAuthRoutes.get("/conference/google/callback", (req, res) => {
       await addUser(user);
 
       res.cookie(COOKIE_NAME, createCookie('appointment', user), {
-        httpOnly: true,
-        sameSite: 'none', secure: false, // Use only in production
+        httpOnly: false,
+        sameSite: 'none', secure: true, // Use only in production
         maxAge: COOKIE_MAX_AGE,
       });
       res.redirect(`${process.env.CLIENT_URL}/conference`);
