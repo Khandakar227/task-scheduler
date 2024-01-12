@@ -45,6 +45,7 @@ googleAuthRoutes.get("/appointment/google/callback", (req, res) => {
       
       res.cookie(COOKIE_NAME, createCookie('appointment', user), {
         httpOnly: true,
+        sameSite: 'none', secure: true, // Use only in production
         maxAge: COOKIE_MAX_AGE,
       });
       res.redirect(302, `${process.env.CLIENT_URL}/appointment`);
