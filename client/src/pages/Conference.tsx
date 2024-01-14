@@ -6,13 +6,15 @@ import { openModal } from "../components/Modal/modal";
 import Modal from "../components/Modal/Index";
 import AppointmentTimePicker from "../components/AppointmentTimePicker";
 import Loader from "../components/Loader";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
 import DLTForm from "../components/DLTForm";
 
 const rooms = ['Board Room', 'Committee Room', 'DLT Room', 'VC Room' ];
 
 export default function Conference() {
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
     const [requestLoading, setRequestLoading] = useState(false);
     const [date, setDate] = useState({ startTime: "", endTime: "", date: "" });
     const [room, setRoom] = useState(rooms[0]);
@@ -23,6 +25,12 @@ export default function Conference() {
     const [logisticsSupports, setLogisticsSupports] = useState([] as string[]);
     const [refreshmentSupports, setRefreshmentSupports] = useState([] as string[]);
     const [officialCoverage, setOfficialCoverage] = useState([] as string[]);
+
+    useEffect(() => {
+        const token = queryParams.get("token")
+        if(!token) return
+        localStorage.setItem("access_token", token)
+    }, [])
 
     useEffect(() => {
         if (loading) return;

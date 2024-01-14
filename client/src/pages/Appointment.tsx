@@ -8,7 +8,7 @@ import AppointmentTimePicker from "../components/AppointmentTimePicker";
 import { openModal } from "../components/Modal/modal";
 import { getDay, setTimeFormat } from "../libs";
 import { useUser } from "../contexts/UserContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 // import { useUser } from "../contexts/UserContext";
 // import AppointmentTimePicker from "../components/AppointmentTimePicker";
 const meeting = [
@@ -16,12 +16,20 @@ const meeting = [
     {with:"Honorable Pro Vice Chancellor", place: "Pro VC Office"},
 ]
 export default function Appointment() {
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+
     const navigate = useNavigate();
     const { user, loading } = useUser();
     const [requestLoading, setRequestLoading] = useState(false);
     const [date, setDate] = useState({ startTime: "", endTime: "", date: "" });
     const [meetingWith, setMeetingWith] = useState(meeting[0]);
 
+    useEffect(() => {
+        const token = queryParams.get("token")
+        if(!token) return
+        localStorage.setItem("access_token", token)
+    }, [])
     
     useEffect(() => {
         if(loading) return;

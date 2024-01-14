@@ -30,9 +30,15 @@ export default function UserProvider({ children }: PropsWithChildren) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const token = localStorage.getItem("access_token");
     // request user using cookie and set the user
     setLoading(true);
-    fetch(`${USER_URL}`, { method: "GET", credentials: "include" })
+    fetch(`${USER_URL}`, {
+      method: "GET",
+      headers: {
+        "Authorization": "Bearer " + token as string
+      }
+    })
       .then(res => res.json())
       .then(d => {
         if (!d.error) setUser(d.user);

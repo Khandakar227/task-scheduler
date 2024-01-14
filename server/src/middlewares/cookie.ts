@@ -4,9 +4,17 @@ import { COOKIE_NAME } from "../libs/config";
 
 export const verifyCookie = (req: Request, res: Response, next: NextFunction) => {
   try {
-    // Verify token
-    const token = verify(req.cookies[COOKIE_NAME], process.env.JWT_SECRET as string);
-    res.locals.user = token;
+    // Verify payload
+    const authorization = req.headers.authorization;
+    if(!authorization)
+      return res.status(403).json({ error: true, message: "You are not authorized" });
+    
+    const token = authorization.split(" ")[1]
+    if(!token)
+      return res.status(403).json({ error: true, message: "You are not authorized" });
+    
+    const payload = verify(token, process.env.JWT_SECRET as string);
+    res.locals.user = payload;
     next();
   } catch (err) {
     const error = err as Error;
@@ -17,8 +25,16 @@ export const verifyCookie = (req: Request, res: Response, next: NextFunction) =>
 
 export const verifyAdminCookie = (req: Request, res: Response, next: NextFunction) => {
   try {
-    const token = verify(req.cookies[COOKIE_NAME], process.env.JWT_SECRET as string);
-    res.locals.user = token;
+    // Verify payload
+    const authorization = req.headers.authorization;
+    if(!authorization)
+      return res.status(403).json({ error: true, message: "You are not authorized" });
+    
+    const token = authorization.split(" ")[1]
+    if(!token)
+      return res.status(403).json({ error: true, message: "You are not authorized" });
+    const payload = verify(token, process.env.JWT_SECRET as string);
+    res.locals.user = payload;
     if (res.locals.user.role != 'admin') return res.status(403).json({ error: true, message: "You are not authorized" });
     next();
   } catch (err) {

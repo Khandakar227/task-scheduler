@@ -73,13 +73,15 @@ export const signInAsAdmin = async (req: Request, res: Response) => {
           });
 
           res
-          .cookie(COOKIE_NAME, token, { maxAge: COOKIE_MAX_AGE, httpOnly: true })
           .status(200)
-          .json({error: false, data: {
+          .json(
+            {error: false,
+            data: {
             name: admin.name,
             email:admin.email,
             role: 'admin'
-          }
+            },
+            token
         })
     } catch (error) {
         const err = error as Error;

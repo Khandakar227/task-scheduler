@@ -13,9 +13,12 @@ export default function DLT() {
 
     useEffect(() => {
         setLoading(true);
+        const token = localStorage.getItem("access_token");
         fetch(DLT_URL, {
             method: "GET",
-            credentials: "include"
+            headers: {
+                "Authorization": "Bearer " + token as string
+            }
         })
             .then(res => res.json())
             .then(data => {

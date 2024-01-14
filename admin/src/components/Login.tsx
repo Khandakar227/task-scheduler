@@ -15,7 +15,6 @@ export default function Login() {
             setLoading(true);
             const res = await fetch(`${ADMIN_API_URL}/login`, {
                 method: "POST",
-                credentials: 'include',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(cred)
             });
@@ -24,6 +23,7 @@ export default function Login() {
                 toast.error(data.message);
             } else {
                 console.log(data);
+                localStorage.setItem("access_token", data.token);
                 setAdmin(data.data);
             }
         } catch (error) {

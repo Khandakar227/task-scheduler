@@ -28,9 +28,12 @@ export default function Conferences() {
 
     useEffect(() => {
         setLoading(true);
+        const token = localStorage.getItem("access_token");
         fetch(`${CONFERENCES_API_URL}`, {
             method: "GET",
-            credentials: "include"
+            headers: {
+                "Authorization": "Bearer " + token as string
+              }
         })
             .then(res => res.json())
             .then(data => {

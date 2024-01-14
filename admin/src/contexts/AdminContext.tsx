@@ -32,7 +32,10 @@ import { ADMIN_API_URL } from "../assets/config";
     useEffect(() => {
       // request admin using cookie and set the admin
       setLoading(true);
-      fetch(`${ADMIN_API_URL}`, { method: "GET", credentials: "include" })
+      const token = localStorage.getItem("access_token");
+      fetch(`${ADMIN_API_URL}`, { method: "GET", headers: {
+        "Authorization": "Bearer " + token as string
+      } })
         .then(res => res.json())
         .then(d => {
           if (!d.error) setAdmin(d.data);

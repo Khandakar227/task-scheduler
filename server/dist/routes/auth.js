@@ -17,7 +17,6 @@ const auth_1 = require("../controllers/auth");
 const passport_1 = __importDefault(require("passport"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const cookies_1 = require("../libs/cookies");
-const config_1 = require("../libs/config");
 const user_1 = require("../libs/user");
 dotenv_1.default.config();
 const googleAuthRoutes = express_1.default.Router();
@@ -39,11 +38,15 @@ googleAuthRoutes.get("/appointment/google/callback", (req, res) => {
             }
             //Add user to mongodb
             yield (0, user_1.addUser)(user);
-            res.cookie(config_1.COOKIE_NAME, (0, cookies_1.createCookie)('appointment', user), {
-                httpOnly: true,
-                maxAge: config_1.COOKIE_MAX_AGE,
-            });
-            res.redirect(302, `${process.env.CLIENT_URL}/appointment`);
+            // res.cookie(COOKIE_NAME, createCookie('appointment', user), {
+            //   httpOnly: true,
+            //   maxAge: COOKIE_MAX_AGE,
+            //   // Use only in production
+            //   domain: 'iut-appointment-and-room-booking.onrender.com',
+            //   sameSite: 'none',
+            //   secure: true,
+            // });
+            res.redirect(302, `${process.env.CLIENT_URL}/appointment?token=${(0, cookies_1.createCookie)('appointment', user)}`);
         });
     })(req, res);
 });
@@ -59,11 +62,7 @@ googleAuthRoutes.get("/conference/google/callback", (req, res) => {
             }
             //Add user to mongodb
             yield (0, user_1.addUser)(user);
-            res.cookie(config_1.COOKIE_NAME, (0, cookies_1.createCookie)('appointment', user), {
-                httpOnly: true,
-                maxAge: config_1.COOKIE_MAX_AGE,
-            });
-            res.redirect(`${process.env.CLIENT_URL}/conference`);
+            res.redirect(`${process.env.CLIENT_URL}/conference?token=${(0, cookies_1.createCookie)('appointment', user)}`);
         });
     })(req, res);
 });

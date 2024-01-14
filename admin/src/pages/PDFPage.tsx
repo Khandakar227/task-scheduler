@@ -20,10 +20,12 @@ export default function PDFPage() {
       const qp = new URLSearchParams(search);
       
       setUpto(qp.get("upto") as UptoType);
-
+      const token = localStorage.getItem("access_token");
       fetch(`${REQUEST_API_URL}${search}`, {
           method: "GET",
-          credentials: "include"
+          headers: {
+              "Authorization": "Bearer " + token as string
+            }
       })
           .then(res => res.json())
           .then(data => {

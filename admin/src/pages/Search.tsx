@@ -31,9 +31,12 @@ export default function Search() {
     const url = type == 'appointment' ? APPOINMENTS_API_URL : type == 'conference' ? CONFERENCES_API_URL : REQUEST_API_URL;
     const urlSearchParam = new URLSearchParams({q: q as string})
     
+    const token = localStorage.getItem("access_token");
     fetch(`${url}/search?${urlSearchParam.toString()}`, {
-      method: "GET",
-      credentials: "include"
+    method: "GET",
+    headers: {
+        "Authorization": "Bearer " + token as string
+      }
   })
     .then(res => res.json())
     .then(data => {

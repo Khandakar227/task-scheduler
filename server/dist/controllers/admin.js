@@ -78,13 +78,14 @@ const signInAsAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             expiresIn: 3600000 * 4,
         });
         res
-            .cookie(config_1.COOKIE_NAME, token, { maxAge: config_1.COOKIE_MAX_AGE, httpOnly: true })
             .status(200)
-            .json({ error: false, data: {
+            .json({ error: false,
+            data: {
                 name: admin.name,
                 email: admin.email,
                 role: 'admin'
-            }
+            },
+            token
         });
     }
     catch (error) {

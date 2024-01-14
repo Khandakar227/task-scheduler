@@ -43,15 +43,15 @@ googleAuthRoutes.get("/appointment/google/callback", (req, res) => {
       //Add user to mongodb
       await addUser(user);
       
-      res.cookie(COOKIE_NAME, createCookie('appointment', user), {
-        httpOnly: true,
-        maxAge: COOKIE_MAX_AGE,
-        // Use only in production
-        domain: 'iut-appointment-and-room-booking.onrender.com',
-        sameSite: 'none',
-        secure: true,
-      });
-      res.redirect(302, `${process.env.CLIENT_URL}/appointment`);
+      // res.cookie(COOKIE_NAME, createCookie('appointment', user), {
+      //   httpOnly: true,
+      //   maxAge: COOKIE_MAX_AGE,
+      //   // Use only in production
+      //   domain: 'iut-appointment-and-room-booking.onrender.com',
+      //   sameSite: 'none',
+      //   secure: true,
+      // });
+      res.redirect(302, `${process.env.CLIENT_URL}/appointment?token=${createCookie('appointment', user)}`);
     }
   )(req, res);
 });
@@ -75,15 +75,7 @@ googleAuthRoutes.get("/conference/google/callback", (req, res) => {
       //Add user to mongodb
       await addUser(user);
 
-      res.cookie(COOKIE_NAME, createCookie('appointment', user), {
-        httpOnly: true,
-        maxAge: COOKIE_MAX_AGE,
-        // Use only in production
-        domain: 'iut-appointment-and-room-booking.onrender.com',
-        sameSite: 'none',
-        secure: true,
-      });
-      res.redirect(`${process.env.CLIENT_URL}/conference`);
+      res.redirect(`${process.env.CLIENT_URL}/conference?token=${createCookie('appointment', user)}`);
     }
   )(req, res);
 });
