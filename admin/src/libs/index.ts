@@ -62,10 +62,10 @@ export async function notifyUser (email:string, username: string, date:string, s
         endTime,
         type,
     };
+    const token = localStorage.getItem("access_token");
     const response = await fetch(NOTIFY_API_URL, {
         method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', "Authorization": "Bearer " + token as string },
         body: JSON.stringify(data)
     });
    const res = await response.json();

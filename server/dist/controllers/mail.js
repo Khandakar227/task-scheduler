@@ -16,8 +16,8 @@ exports.sendMail = void 0;
 const mail_1 = __importDefault(require("../libs/mail"));
 const sendMail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { email, username, startTime, endTime, date, type } = req.body;
-        (0, mail_1.default)(email, username, date, startTime, endTime, type);
+        const { email, username, startTime, endTime, date, type, request } = req.body;
+        (0, mail_1.default)(email, username, date, startTime, endTime, type, request);
         res.status(200).json({ error: false, message: "Message sent" });
     }
     catch (error) {

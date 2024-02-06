@@ -20,7 +20,7 @@ exports.transporter = (0, nodemailer_1.createTransport)({
         pass: process.env.MAIL_SENDER_PASSKEY
     }
 });
-const emailBody = (username, date, start_time, end_time, type) => `
+const emailBodyForAccpet = (username, date, start_time, end_time, type) => `
 <p>Dear ${username},</p>
 <p>I hope this message finds you well. We wanted to inform you that there has been an update to your upcoming  ${type == 'Appointment' ? 'appointment' : 'booking'} schedule. The details of your  ${type == 'Appointment' ? 'appointment' : 'booking'} have been adjusted, and we want to ensure that you are aware of the changes. Here are the updated  ${type == 'Appointment' ? 'appointment' : 'booking'} details:</p>
 <p><strong>Starting Date and Time: ${(0, utils_1.DDMMYYYY)(date, 'short')} ${(0, utils_1.setTimeFormat)(start_time, '12')}</strong></p> 
@@ -29,14 +29,30 @@ const emailBody = (username, date, start_time, end_time, type) => `
     <p>If the updated schedule works for you, there is no further action required.</p>
     <p>Should you have any questions or concerns, please feel free to reach out to us at <b>${PHONE_NO}</b>.</p>
 <p>Best Regards,</p>
-<p>IUT Administration Team</p>
+<p>Md. Nahidul Islam Prodhan</p>
+<p>Senior Assistant Secretary</p>
+<p>Vice Chancellor's Office</p>
 `;
-const notifyUser = (email, username, date, start_time, end_time, type) => {
+const emailBodyForDecline = (username, date, start_time, end_time, type) => `
+<p>Dear ${username},</p>
+<p>I trust this message finds you in good health. Thank you for your understanding and patience.</p>
+<p>After careful consideration, we regret to inform you that we are unable to accommodate the requested changes to your upcoming ${type === 'Appointment' ? 'appointment' : 'booking'} schedule.</p>
+<p>Kindly note that the original schedule remains unchanged:</p>
+<p><strong>Starting Date and Time: ${(0, utils_1.DDMMYYYY)(date, 'short')} ${(0, utils_1.setTimeFormat)(start_time, '12')}</strong></p> 
+<p><strong>Ending Time: ${(0, utils_1.setTimeFormat)(end_time, '12')} </strong></p>
+<p>We understand that this may cause inconvenience, and we sincerely apologize for any disruption this may have caused. If you have any further questions or concerns, please do not hesitate to reach out to us at <b>${PHONE_NO}</b>.</p>
+<p>Thank you for your understanding.</p>
+<p>Best Regards,</p>
+<p>Md. Nahidul Islam Prodhan</p>
+<p>Senior Assistant Secretary</p>
+<p>Vice Chancellor's Office</p>
+`;
+const notifyUser = (email, username, date, start_time, end_time, type, request) => {
     const mailOptions = {
         from: config.email,
         to: email,
         subject: type == 'Appointment' ? 'Updates on appointment with Vice Chancellor of IUT' : 'Update on conference room booking for Vice Chancellor of IUT',
-        html: emailBody(username, date, start_time, end_time, type)
+        html: request == 'accepted' ? emailBodyForAccpet(username, date, start_time, end_time, type) : emailBodyForDecline(username, date, start_time, end_time, type)
     };
     exports.transporter.sendMail(mailOptions, (err, info) => {
         console.log(info);

@@ -56,10 +56,12 @@ export default function Appointment() {
                 };
 
                 setTimeout(async () => {
+                    const token = localStorage.getItem("access_token");
                     const res = await fetch(`${APPOINTMENT_URL}/create`, {
                         headers: {
                             'Accept': 'application/json',
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/json',
+                            "Authorization": "Bearer " + token as string 
                         },
                         method: "POST",
                         credentials: "include",
