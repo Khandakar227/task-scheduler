@@ -22,12 +22,11 @@ function Home() {
     <>
       <main className='font-nunito min-h-screen bg-1'>
         <Header disableSidebar={true} />
-        <div className='max-w-[600px] mx-auto min-h-[calc(100vh-95px)] h-full flex justify-center items-center'>
+        <div className='max-w-[800px] mx-auto min-h-[calc(100vh-95px)] h-full flex justify-center items-center'>
           <div>
             <p className='md:text-5xl text-3xl font-bold text-center text-white md:leading-[4.5rem]'>
-              Welcome to <br />
-              IUT Administration Office<br />
-              Online Portal
+              Welcome to the<br/>
+              Office of the Vice Chancellor
             </p>
             <div className='md:pt-20 pt-10 flex md:flex-row flex-col justify-center items-center gap-8'>
               <button onClick={onAppointment} className='bg-green-600 py-3 px-8 flex rounded-3xl text-white text-xl font-bold'>Get Your Appointment</button>

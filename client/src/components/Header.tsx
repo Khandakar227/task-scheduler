@@ -24,7 +24,7 @@ function Header({children, disableSidebar}:HeaderProps) {
         <div className="flex items-center justify-between max-w-5xl">
             <Link to={"/"} className="inline-flex justify-start items-center gap-4">
                 <img className='w-8' src="/logo.png" alt="Logo" />
-                <h1 className='text-base sm:text-xl font-semibold text-white'>IUT Administration Office</h1>
+                <h1 className='text-base sm:text-xl font-semibold text-white'>Office of the Vice Chancellor, IUT</h1>
             </Link>
             {!disableSidebar &&
             (<button className='text-white block lg:hidden' onClick={onMenuButtonClick}><AiOutlineMenu size={24}/></button>)}
